@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{{ super() }}
+<style type="text/css">
+    a:hover {
+        color: #0099CC
+    }
+
+    /*.row:hover{border-style: None solid;
+        border-color:#666666;
+        border-width:1px;
+    }*/
+    #menu {
+        /* https://www.w3.org/Style/Examples/007/menus.zh_CN.html#L384 */
+        position: fixed;
+        right: 0;
+        top: 50%;
+        width: 8em;
+        margin-top: -2.5em;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block container %}
+{{ super() }}
+<div class="page-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- H1 Title -->
+            <h1>Data Science Challenge / Competition
+                <!-- Begin Github star -->
+                <iframe
+                    src="https://ghbtns.com/github-btn.html?user=iphysresearch&repo=DataSciComp&type=star&count=true"
+                    scrolling="0" width="170px" height="20px" frameborder="0"></iframe>
+                <!-- End Github star -->
+            </h1>
+        </div>
+        <div class="meta col-xs-12">
+            <li>Countdowns to <b>ENTRY DEADLINE</b> of popular Data Science Challenges/Competitions.</li>
+            <li>To add/update a challenge or any other advices to me, plesase don't hesitate and send in a
+                <a target="_blank" href="https://github.com/iphysresearch/DataSciComp"
+                    style="background-color:#CCFF66">pull request</a>.
+            </li>
+            <li>
+                <a href="/DataSciComp/hostby.html" style="background-color:#CCFF66">Here</a> offer a list of links to
+                various sources in which you may have an interest.
+            </li>
+            <li>Subscribe to our mailing list for news and updates! <a
+                    href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
+                        src="http://www.runoob.com/images/rss.gif" width="36" height="14"></a></li>
+        </div>
+        <!-- Begin Mailchimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            #mc_embed_signup {
+                background: #fff;
+                clear: left;
+                font: 14px Helvetica, Arial, sans-serif;
+                width: 500px;
+            }
+            /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        </style>
+        <div id="mc_embed_signup" class="meta col-xs-12">
+            <form
+                action="https://github.us20.list-manage.com/subscribe/post?u=9fc96c0c089d4508de8f618a5&amp;id=fc48c9457c"
+                method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+                target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <!-- <label for="mce-EMAIL">Subscribe to our mailing list</label> -->
+                    <!-- <li>Subscribe to our mailing list</li> -->
+                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address"
+                        required>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                            name="b_9fc96c0c089d4508de8f618a5_fc48c9457c" tabindex="-1" value=""></div>
+                    <div class="clear">
+                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                            class="button">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--End mc_embed_signup-->
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    {% for id_checkbox in id_type_checkboxs %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
+                                {{ id_checkbox.name }}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+            <hr>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    {% for id_checkbox in id_type2_checkboxs %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
+                                {{ id_checkbox.name }}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label style="color:#FF0033"><input id="rewarded-checkbox" class="" type="checkbox"></input>
+                                Rewards filter
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="meta col-xs-12">
+            <!-- Export all deadlines to
+            <a href="https://calendar.google.com/calendar/r?cid=http://aideadlin.es/ai-deadlines.ics">Google Calendar</a>
+             . -->
+            <p id="system-time"></p>
+        </div>
+    </div>
+</div>
+
+{% for Comp in competitions %}
+<div id="{{ Comp.id }}"
+    class="{{ '-comp '.join(Comp.type1) }}-comp {{ '-comp '.join(Comp.type2) }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <a href="{{ Comp.url }}" name="{{ Comp.id }}"><b>{{ Comp.title }}</b></a>
+            <div class="meta">{{ Comp.range }}
+                // Host by
+                {% for host in Comp.hostby %}
+                {% if loop.index > 1 %}
+                &
+                {% endif %}
+                {% for item in host.items() %}
+                <a href="{{ item[1] }}" style="background-color:#CCFF66">{{ item[0] }}</a>
+                {% endfor %}
+                {% endfor %}
+                // Prize: {{ Comp.prize }}</div>
+            {% if Comp.note %}
+            <div class="note"><b>Note</b>: {{ Comp.note | safe }}
+                <!-- More info <a href="http://baidu.com">here</a> -->
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            {% if Comp.deadtime != 'No deadline' %}
+            <span class="timer"></span>
+            <div class="deadline">
+                <div>Entry Deadline: <span class="deadline-time"></span></div>
+            </div>
+            <div class="calendar"></div>
+            {% else %}
+            <div>No Deadline.</div>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+</div>
+{% endfor %}
+<footer>
+    <!-- https://clustrmaps.com/ -->
+    <script type='text/javascript' id='clustrmaps'
+        src='//cdn.clustrmaps.com/map_v2.js?cl=080808&w=557&t=tt&d=mmxT7aC-Q0y6XjIG4NnfnrS0FBgO6N7mGMI7h0MB_OM&co=ffffff&ct=808080&cmo=3acc3a&cmn=ff5353'>
+    </script>
+    <a href="/">DataSciComp</a>
+    is maintained by
+    <a href="https://github.com/iphysresearch">@Herb</a>
+    .
+</footer>
+<hr>
+{% endblock %}
+

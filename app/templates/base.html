@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Science Competitions Deadlines</title>
+  <meta name="description" content="Countdowns to popular Data Science Competitions deadlines">
+  <meta name="author" content="Herb">
+  <link rel="stylesheet" type="text/css"
+    href=".{{ url_for('static', _external = False, filename='deadlines_css/deadlines.css') }}"
+    media="screen,projection">
+  <link rel="stylesheet" type="text/css"
+    href=".{{ url_for('static', _external = False, filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src=".{{ url_for('static', filename='js/jquery.min.js') }}"></script> -->
+  <script type="text/javascript"
+    src=".{{ url_for('static', _external = False, filename='js/jquery.countdown.min.js') }}"></script>
+  <script src=".{{ url_for('.static', _external = False, filename='js/moment.min.js') }}"></script>
+  <script src=".{{ url_for('static', _external = False, filename='js/moment-timezone-with-data.min.js') }}"></script>
+  <script src=".{{ url_for('static', _external = False, filename='js/store.min.js') }}"></script>
+  <script src=".{{ url_for('static', _external = False, filename='js/ouical.min.js') }}"></script>
+  <!-- icon -->
+  <link rel="icon" href=".{{ url_for('static', filename='img/favicon.ico') }}">
+  <!-- <link rel="shortcut icon" href="#" /> -->
+  <!-- <link href="./static/img/favicon.ico" rel="shortcut icon">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+        <link rel="manifest" href="./static/img/site.webmanifest">
+        <link rel="mask-icon" href="./static/img/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#00aba9">
+        <meta name="msapplication-TileImage" content="./static/img/mstile-144x144.png">
+        <meta name="theme-color" content="#ffffff"> -->
+
+  <script id="mcjs">
+    ! function (c, h, i, m, p) {
+      m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p)
+    }(document, "script",
+      "https://chimpstatic.com/mcjs-connected/js/users/9fc96c0c089d4508de8f618a5/a064ee28e34f00ca929271c58.js");
+  </script>
+  {% endblock %}
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- <a href="https://github.com/iphysresearch/DataSciComp" style="position: absolute; top: 0; right: 0; border: 0;"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
+
+    {% block container %}
+
+    {% endblock %}
+  </div>
+
+
+  {% block script_js %}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134245065-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134245065-1');
+  </script>
+
+  <script>
+    // Set checkboxes
+    var comp_type_data = [{
+      "name": "Platform",
+      "sub": "PF"
+    }, {
+      "name": "Academia",
+      "sub": "AC"
+    }];
+    var all_subs = [];
+    var type1_subs = [];
+    for (var i = 0; i < comp_type_data.length; i++) {
+      all_subs[i] = comp_type_data[i]['sub'];
+      type1_subs[i] = comp_type_data[i]['sub'];
+    }
+
+
+    // Get subjects from URL
+    var url = new URL(window.location);
+    var subs = url.searchParams.get('sub');
+    if (subs == undefined) {
+      subs = store.get('/');
+      console.log(subs);
+    } else {
+      subs = subs.toUpperCase().split(',');
+    }
+    // Get subjects from browser cache
+
+    if (subs === undefined) {
+      subs = all_subs;
+      for (var i = 0; i < subs.length; i++) {
+        $('#' + subs[i] + '-checkbox').prop('checked', true);
+      }
+    } else {
+      for (var i = 0; i < subs.length; i++) {
+        $('#' + subs[i] + '-checkbox').prop('checked', true);
+      }
+    }
+    // Hide unchecked subs
+    for (var i = 0; i < all_subs.length; i++) {
+      if (subs.indexOf(all_subs[i]) < 0) {
+        $('.' + all_subs[i] + '-host').hide();
+      }
+    }
+    store.set('/', subs);
+    window.history.pushState('', '', '/DataSciComp/hostby?sub=' + subs.join());
+
+    // Event handler on checkbox change
+    $('form :checkbox').change(function (e) {
+
+      var checked = $(this).is(':checked');
+      var cid = $(this).prop('id');
+      var csub = cid.substring(0, cid.length - 9);
+      if (checked == true) {
+        // $('.' + csub + '-host').show();
+        if (subs.indexOf(csub) < 0)
+          subs.push(csub);
+      } else {
+        // $('.' + csub + '-host').hide();
+        var idx = subs.indexOf(csub);
+        if (idx >= 0)
+          subs.splice(idx, 1);
+      }
+      // First, hide all
+      for (var i = 0; i < all_subs.length; i++) {
+        $('.' + all_subs[i] + '-host').hide();
+      }
+      // Then, show the one with checked subs within PF/AC
+      for (var i = 0; i < type1_subs.length; i++) {
+        if (subs.indexOf(type1_subs[i]) >= 0) {
+          $('.' + type1_subs[i] + '-host').show();
+        }
+      }
+      console.log(subs);
+      store.set('/', subs);
+      window.history.pushState('', '', '/DataSciComp/hostby?sub=' + subs.join());
+    });
+  </script>
+  {% endblock %}
+</body>
+
+</html>

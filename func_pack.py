@@ -31,7 +31,6 @@ def get_api_info(request_result):
 
 
 if __name__ == '__main__':
-    '''http://23.106.158.242:30080/users'''
-    content = requests.get('http://23.106.158.242:30080/users')
+    content = requests.get('http://174.137.53.253:30500/api/competition/all-competitions')
     print(get_api_info(content))
     pass
