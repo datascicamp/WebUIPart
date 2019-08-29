@@ -7,12 +7,12 @@ from app.models import User
 import requests
 
 
-id_type_checkboxs = [
-    {"id": "PF-checkbox", "name": "Platform"}
-    # ,{'id': 'IT-checkbox', 'name': 'Industry'}
-    ,
-    {"id": "AC-checkbox", "name": "Academia"},
-]
+# id_type_checkboxs = [
+#     {"id": "PF-checkbox", "name": "Platform"}
+#     # ,{'id': 'IT-checkbox', 'name': 'Industry'}
+#     ,
+#     {"id": "AC-checkbox", "name": "Academia"},
+# ]
 
 id_type2_checkboxs = [
     {"id": "DM-checkbox", "name": "Data Mining"},
@@ -23,15 +23,19 @@ id_type2_checkboxs = [
 ]
 
 
-@app.route('/')
-@app.route('/index')
+@app.route("/")
+@app.route("/index")
 def index():
     addr = Config.ADDRESS_COMP
     info_list = get_api_info(requests.get(addr))
-    return render_template('index.html', 
-        id_type_checkboxs=id_type_checkboxs,
-    id_type2_checkboxs=id_type2_checkboxs,
-    competitions = info_list)
+    print(info_list)
+    return render_template(
+        "index.html",
+        # id_type_checkboxs=id_type_checkboxs,
+        id_type2_checkboxs=id_type2_checkboxs,
+        competitions=info_list,
+    )
+
 
 # @app.route("/hostby.html")
 # def hostby(id_type_checkboxs=id_type_checkboxs, hosts=hosts):

@@ -4,7 +4,7 @@ import requests
 if __name__ == '__main__':
 
     record = {
-        "comp_title": "全球数据智能大赛(2019)",
+        "comp_title": "全球数据智能大赛(2024)",
         "comp_subtitle": "“数字人体”赛场一：肺部CT多病种智能诊断",
         "comp_range": "Jul 31 - Oct 31, 2019",
         "comp_url": "https://tianchi.aliyun.com/competition/entrance/231724/",
@@ -15,9 +15,9 @@ if __name__ == '__main__':
         "prize_amount": "10000",
         "publish_time": "2019-07-23",
         "update_time": "2019-08-01",
-        "deadline": "2019-10-31 23:59:59",
+        "deadline": "2020-10-31 23:59:59",
         "timezone": "UTC",
-        "comp_scenario": "CV",
+        "comp_scenario": ["CV", "NLP"],
         "data_feature": "一维数组",
         "contributor_id": "233"
     }
@@ -28,3 +28,12 @@ if __name__ == '__main__':
     print(result)
 
     pass
+
+
+# curl -X DELETE 174.137.53.253:30500/api/competition/5d46b86180e246bb7f206bf7
+
+# curl http://174.137.53.253:30500/api/competition/competition-name/fuzzy/2019
+# curl http://174.137.53.253:30500/api/competition/hostname/fuzzy/天池
+
+
+# http://174.137.53.253:30500/api/usage

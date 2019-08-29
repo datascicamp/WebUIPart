@@ -61,6 +61,7 @@
                 font: 14px Helvetica, Arial, sans-serif;
                 width: 500px;
             }
+
             /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
         </style>
@@ -88,10 +89,10 @@
     </div>
 
     <br>
-
+    <!-- Begin: checkbox -->
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-horizontal">
+            <!-- <form class="form-horizontal">
                 <div class="form-group">
                     {% for id_checkbox in id_type_checkboxs %}
                     <div class="col-md-4 col-xs-5">
@@ -103,7 +104,7 @@
                     </div>
                     {% endfor %}
                 </div>
-            </form>
+            </form> -->
             <hr>
             <form class="form-horizontal">
                 <div class="form-group">
@@ -127,6 +128,7 @@
             </form>
         </div>
     </div>
+    <!-- End: checkbox -->
     <div class="row">
         <div class="meta col-xs-12">
             <!-- Export all deadlines to
@@ -137,31 +139,32 @@
     </div>
 </div>
 
+<!-- Begin: Main content -->
 {% for Comp in competitions %}
-<div id="{{ Comp.id }}"
-    class="{{ '-comp '.join(Comp.type1) }}-comp {{ '-comp '.join(Comp.type2) }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
+<div id="{{ Comp.comp_record_hash }}"
+    class="{{ '-comp '.join(Comp.type1) }}-comp {{ '-comp '.join(Comp.comp_scenario) }}-comp {{ Comp.comp_scenario }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="{{ Comp.url }}" name="{{ Comp.id }}"><b>{{ Comp.title }}</b></a>
-            <div class="meta">{{ Comp.range }}
-                // Host by
-                {% for host in Comp.hostby %}
+            <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
+            <div class="meta">{{ Comp.comp_range }}
+                // Host by {{ Comp.comp_host_name }}
+                <!-- {% for host in Comp.hostby %}
                 {% if loop.index > 1 %}
                 &
                 {% endif %}
                 {% for item in host.items() %}
                 <a href="{{ item[1] }}" style="background-color:#CCFF66">{{ item[0] }}</a>
                 {% endfor %}
-                {% endfor %}
+                {% endfor %} -->
                 // Prize: {{ Comp.prize }}</div>
-            {% if Comp.note %}
-            <div class="note"><b>Note</b>: {{ Comp.note | safe }}
+            {% if Comp.comp_description %}
+            <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }}
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
         </div>
         <div class="col-xs-12 col-sm-6">
-            {% if Comp.deadtime != 'No deadline' %}
+            {% if Comp.deadline != 'No deadline' %}
             <span class="timer"></span>
             <div class="deadline">
                 <div>Entry Deadline: <span class="deadline-time"></span></div>
@@ -175,6 +178,8 @@
     <hr>
 </div>
 {% endfor %}
+<!-- End: Main content -->
+
 <footer>
     <!-- https://clustrmaps.com/ -->
     <script type='text/javascript' id='clustrmaps'
@@ -188,3 +193,119 @@
 <hr>
 {% endblock %}
 
+
+{% block script_js %}
+{{ super() }}
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+        // https://github.com/carlsednaoui/add-to-calendar-buttons
+        {% for Comp in competitions %}
+            {% if Comp.deadline != 'No deadline' %}
+          // adjust date according to deadline timezone
+        //   var timezone = "Etc/GMT-8" ;
+        //   var timezone = "Asia/Shanghai" ;
+          var timezone = "{{ Comp.timezone }}" ;
+          var compDate = moment.tz("{{ Comp.deadline }}", timezone);
+
+          // render countdown timer
+          $('#{{ Comp.comp_record_hash }} .timer').countdown(compDate.toDate(), function(event) {
+            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+          });
+          $('#{{ Comp.comp_record_hash }} .deadline-time').html(compDate.toString());
+          // add calendar button
+          var myCalendar = createCalendar({
+            options: {
+              class: 'calendar-obj',
+              // You can pass an ID. If you don't, one will be generated for you
+              id: '{{ Comp.comp_record_hash }}'
+            },
+            data: {
+              // Event title
+              title: '[Entry Deadline] {{ Comp.comp_title }}',
+              // Event start date
+              start: compDate.toDate(), 
+              end: compDate.toDate(), 
+                // You can also choose to set an end time
+                // If an end time is set, this will take precedence over duration
+                // end: new Date('June 15, 2013 23:00'),
+              // Event duration (IN MINUTES)
+              duration: 60,
+                // Event Description
+                description: '{{ Comp.comp_description }}'
+            }
+          });
+          document.querySelector('#{{ Comp.comp_record_hash }} .calendar').appendChild(myCalendar);
+          //console.log(myCalendar);
+          // check if date has passed, add 'past' class to it
+          var today = moment();
+          if (today.diff(compDate) > 0)
+            $('#{{ Comp.comp_record_hash }}').addClass('past');
+            {% endif %}
+        {% endfor %}
+        
+
+    });
+    
+    // Your system time
+    var t = null;
+    t = setTimeout(showTime,1000);//开始执行
+    function showTime()
+    {
+       clearTimeout(t);//清除定时器
+       dt = new Date();
+       document.getElementById("system-time").innerHTML = 'Your current server time: '+dt;
+       t = setTimeout(showTime,1000); //设定定时器，循环执行             
+    } 
+      // https://blog.csdn.net/dcb_ripple/article/details/54347339
+      var Cookie = {  
+        setCookie:function(name,value,option){  
+            var str = name + "=" + escape(value);  
+            if(option){  
+                if(option.expireDays){  
+                    var date = new Date();  
+                    var ms = option.expireDays * 24 * 3600 * 1000;  
+                    date.setTime(date.getTime() + ms);  
+                    str += "; expires=" + date.toGMTString();  
+                }  
+                if(option.path)str += ";path=" + option.path;  
+                if(option.domain)str += ";domain=" + option.domain;  
+                if(option.secure)str += ";true";  
+            }  
+            document.cookie = str;  
+        },  
+        getCookie:function(name){  
+            var cookies = document.cookie.split(";");  
+            for(var i=0; i<cookies.length;i++){  
+                var arr=cookies[i].split("=");  
+                if(arr[0].trim()==name){  
+                    return unescape(arr[1]);  
+                }  
+            }  
+            return "";  
+        },  
+        delCookie:function(name){  
+            this.setCookie(name,"",{expireDays:-1});  
+        }  
+    }  
+    window.onload=function(){  
+        if("1"==Cookie.getCookie("diffmaker")){  
+            //alert("找到Cookie，我将不再刷新页面，并删除Cookie");  
+            Cookie.delCookie("diffmaker");  
+        }else{  
+            //alert("没有找到Cookie，我将刷新页面!");  
+            Cookie.setCookie("diffmaker","1",null);  
+            //window.location.reload(true);  // Development....
+        }  
+    }  
+    </script>
+{% endblock %}
+
+
+<!-- 完整的 JavaScript 参考手册：http://www.w3school.com.cn/jsref/index.asp
+- JavaScript 本地对象和内置对象
+- Browser 对象（BOM）
+- HTML DOM 对象 -->
+
+<!-- HTML DOM Style 对象参考手册：http://www.w3school.com.cn/jsref/dom_obj_style.asp -->
+
+<!-- $() = document.getElementById() -->
