@@ -197,54 +197,7 @@
 {% block script_js %}
 {{ super() }}
 <script type="text/javascript" charset="utf-8">
-    $(function() {
-        // https://github.com/carlsednaoui/add-to-calendar-buttons
-        {% for Comp in competitions %}
-            {% if Comp.deadline != 'No deadline' %}
-          // adjust date according to deadline timezone
-        //   var timezone = "Etc/GMT-8" ;
-        //   var timezone = "Asia/Shanghai" ;
-          var timezone = "{{ Comp.timezone }}" ;
-          var compDate = moment.tz("{{ Comp.deadline }}", timezone);
 
-          // render countdown timer
-          $('#{{ Comp.comp_record_hash }} .timer').countdown(compDate.toDate(), function(event) {
-            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-          });
-          $('#{{ Comp.comp_record_hash }} .deadline-time').html(compDate.toString());
-          // add calendar button
-          var myCalendar = createCalendar({
-            options: {
-              class: 'calendar-obj',
-              // You can pass an ID. If you don't, one will be generated for you
-              id: '{{ Comp.comp_record_hash }}'
-            },
-            data: {
-              // Event title
-              title: '[Entry Deadline] {{ Comp.comp_title }}',
-              // Event start date
-              start: compDate.toDate(), 
-              end: compDate.toDate(), 
-                // You can also choose to set an end time
-                // If an end time is set, this will take precedence over duration
-                // end: new Date('June 15, 2013 23:00'),
-              // Event duration (IN MINUTES)
-              duration: 60,
-                // Event Description
-                description: '{{ Comp.comp_description }}'
-            }
-          });
-          document.querySelector('#{{ Comp.comp_record_hash }} .calendar').appendChild(myCalendar);
-          //console.log(myCalendar);
-          // check if date has passed, add 'past' class to it
-          var today = moment();
-          if (today.diff(compDate) > 0)
-            $('#{{ Comp.comp_record_hash }}').addClass('past');
-            {% endif %}
-        {% endfor %}
-        
-
-    });
     
     // Your system time
     var t = null;
