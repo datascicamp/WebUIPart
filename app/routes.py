@@ -4,7 +4,7 @@ from config import Config
 from func_pack import get_api_info
 from flask_login import current_user, login_user, login_required, logout_user
 from app.models import User
-import requests
+import requests, datetime
 
 
 # id_type_checkboxs = [
@@ -22,12 +22,16 @@ id_type2_checkboxs = [
     {"id": "SP-checkbox", "name": "Speech/Signal Proccessing"},
 ]
 
+Func_deadline = lambda x: x['deadline']
+# 严格要求 deadline 的格式：%Y-%m-%d %H:%M:%S
+Filtering_pastcomp = lambda comps: [ comp for comp in comps if int(''.join(comp['deadline'].split()[0].split('-')))>=int(datetime.datetime.today().strftime('%Y%m%d'))]
 
 @app.route("/")
 @app.route("/index")
 def index():
     addr = Config.ADDRESS_COMP
     info_list = get_api_info(requests.get(addr))
+    info_list = sorted(Filtering_pastcomp(info_list), key=Func_deadline) # Filtering and sort the list by deadline
     print(info_list)
     return render_template(
         "index.html",
