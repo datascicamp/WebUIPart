@@ -131,21 +131,6 @@
 
 
   {% block script_js %}
-  <script> // 导航栏  https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp
-      // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-      window.onscroll = function() {scrollFunction()};
-      
-      function scrollFunction() {
-        console.log(document.documentElement.scrollTop);
-        if (document.documentElement.scrollTop > 25) {
-          document.getElementById("navbar").style.padding = "10px 50px";
-          document.getElementById("logo").style.fontSize = "25px";
-        } else {
-          document.getElementById("navbar").style.padding = "50px 90px";
-          document.getElementById("logo").style.fontSize = "35px";
-        }
-      }    
-  </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134245065-1"></script>
   <script>
