@@ -142,7 +142,7 @@
 <!-- Begin: Main content -->
 {% for Comp in competitions %}
 <div id="{{ Comp.comp_record_hash }}"
-    class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
+    class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
             <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
@@ -154,9 +154,12 @@
                 {% endif %}
                 <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
                 {% endfor %}
-                // Prize: {{ Comp.prize }}</div>
+                {% if Comp.prize_currency %}
+                // Prize: {{ Comp.prize_amount }} {{ Comp.prize_currency }}
+                {% else %}
+                {% endif %}</div>
             {% if Comp.comp_description %}
-            <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }}
+             <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }} <!-- safe 渲染时不转义 -->
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
