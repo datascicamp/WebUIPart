@@ -142,20 +142,18 @@
 <!-- Begin: Main content -->
 {% for Comp in competitions %}
 <div id="{{ Comp.comp_record_hash }}"
-    class="{{ '-comp '.join(Comp.type1) }}-comp {{ '-comp '.join(Comp.comp_scenario) }}-comp {{ Comp.comp_scenario }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
+    class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {{ '-comp '.join(Comp.howprize) }}-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
             <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
             <div class="meta">{{ Comp.comp_range }}
-                // Host by {{ Comp.comp_host_name }}
-                <!-- {% for host in Comp.hostby %}
+                // Host by 
+                {% for host in Comp.comp_host %}
                 {% if loop.index > 1 %}
                 &
                 {% endif %}
-                {% for item in host.items() %}
-                <a href="{{ item[1] }}" style="background-color:#CCFF66">{{ item[0] }}</a>
+                <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
                 {% endfor %}
-                {% endfor %} -->
                 // Prize: {{ Comp.prize }}</div>
             {% if Comp.comp_description %}
             <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }}
