@@ -25,6 +25,7 @@ id_type2_checkboxs = [
 Func_deadline = lambda x: x['deadline']
 # 严格要求 deadline 的格式：%Y-%m-%d %H:%M:%S
 Filtering_pastcomp = lambda comps: [ comp for comp in comps if int(''.join(comp['deadline'].split()[0].split('-')))>=int(datetime.datetime.today().strftime('%Y%m%d'))]
+Filtering_hashcomp = lambda comps, hash: [ comp for comp in comps if comp['comp_record_hash'] == hash]
 
 @app.route("/")
 @app.route("/index")
@@ -40,6 +41,17 @@ def index():
         competitions=info_list,
     )
 
+@app.route("/competition/<comp_record_hash>", )
+def comp(comp_record_hash):
+    addr = Config.ADDRESS_COMP
+    info_list = get_api_info(requests.get(addr))
+    info_list = Filtering_hashcomp(info_list, comp_record_hash) # Filtering the list by comp_record_hash
+    assert len(info_list) == 1
+    print(info_list)
+    return render_template(
+        "competition.html",
+        competitions=info_list,
+    )
 
 # @app.route("/hostby.html")
 # def hostby(id_type_checkboxs=id_type_checkboxs, hosts=hosts):

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+{{ super() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+
+
+
+{% block container %}
+{{ super() }}
+<div class="page-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- H1 Title -->
+            <h1>Data Science Challenge / Competition
+                <!-- Begin Github star -->
+                <iframe
+                    src="https://ghbtns.com/github-btn.html?user=iphysresearch&repo=DataSciComp&type=star&count=true"
+                    scrolling="0" width="170px" height="20px" frameborder="0"></iframe>
+                <!-- End Github star -->
+            </h1>
+        </div>
+        <div class="meta col-xs-12">
+            <li>Countdowns to <b>ENTRY DEADLINE</b> of popular Data Science Challenges/Competitions.</li>
+            <li>To add/update a challenge or any other advices to me, plesase don't hesitate and send in a
+                <a target="_blank" href="https://github.com/iphysresearch/DataSciComp"
+                    style="background-color:#CCFF66">pull request</a>.
+            </li>
+            <li>
+                <a href="/DataSciComp/hostby.html" style="background-color:#CCFF66">Here</a> offer a list of links to
+                various sources in which you may have an interest.
+            </li>
+            <li>Subscribe to our mailing list for news and updates! <a
+                    href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
+                        src=".{{ url_for('.static', _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
+        </div>
+    </div>
+
+    <br>
+    <!-- Begin: checkbox -->
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- <form class="form-horizontal">
+                <div class="form-group">
+                    {% for id_checkbox in id_type_checkboxs %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
+                                {{ id_checkbox.name }}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form> -->
+            <form class="form-horizontal">
+                <div class="form-group">
+                    {% for id_checkbox in id_type2_checkboxs %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
+                                {{ id_checkbox.name }}
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="col-md-4 col-xs-5">
+                        <div class="checkbox">
+                            <label style="color:#FF0033"><input id="rewarded-checkbox" class="" type="checkbox"></input>
+                                Rewards filter
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End: checkbox -->
+    <div class="row">
+        <div class="meta col-xs-12">
+            <!-- Export all deadlines to
+            <a href="https://calendar.google.com/calendar/r?cid=http://aideadlin.es/ai-deadlines.ics">Google Calendar</a>
+             . -->
+            <p id="system-time"></p>
+        </div>
+    </div>
+</div>
+
+<!-- Begin: Main content -->
+{% for Comp in competitions %}
+<div id="{{ Comp.comp_record_hash }}"
+    class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
+            <div class="meta">{{ Comp.comp_range }}
+                // Host by 
+                {% for host in Comp.comp_host %}
+                {% if loop.index > 1 %}
+                &
+                {% endif %}
+                <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
+                {% endfor %}
+                {% if Comp.prize_currency %}
+                // Prize: {{ Comp.prize_amount }} {{ Comp.prize_currency }}
+                {% else %}
+                {% endif %}</div>
+            {% if Comp.comp_description %}
+             <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }} <!-- safe 渲染时不转义 -->
+                <!-- More info <a href="http://baidu.com">here</a> -->
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            {% if Comp.deadline != 'No deadline' %}
+            <span class="timer"></span>
+            <div class="deadline">
+                <div>Entry Deadline: <span class="deadline-time"></span></div>
+            </div>
+            <div class="calendar"></div>
+            {% else %}
+            <div>No Deadline.</div>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+</div>
+{% endfor %}
+<!-- End: Main content -->
+
+<footer>
+    <a href="/">DataSciComp</a>
+    is maintained by
+    <a href="https://github.com/iphysresearch">@Herb</a>
+    .
+</footer>
+<hr>
+{% endblock %}
+
+
+{% block script_js %}
+{{ super() }}
+
+{% endblock %}
+
+
+<!-- 完整的 JavaScript 参考手册：http://www.w3school.com.cn/jsref/index.asp
+- JavaScript 本地对象和内置对象
+- Browser 对象（BOM）
+- HTML DOM 对象 -->
+
+<!-- HTML DOM Style 对象参考手册：http://www.w3school.com.cn/jsref/dom_obj_style.asp -->
+
+<!-- $() = document.getElementById() -->
+
+
+<!-- https://phantomjscloud.com/api/browser/v2/a-demo-key-with-low-quota-per-ip-address/?request=%7Burl:%22http://iphysresearch.github.io/%22,renderType:%22jpeg%22,renderSettings:%7Bviewport:%7Bwidth:640,height:1000%7D,clipRectangle:%7Bwidth:640,height:1000%7D,zoomFactor:1%7D%7D -->
