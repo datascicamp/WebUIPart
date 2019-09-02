@@ -39,6 +39,7 @@
       #myBtn:hover {
         background-color: #555; /* Add a dark-grey background on hover */
       }
+
 </style>
 {% endblock %}
 
@@ -70,7 +71,7 @@
             </li>
             <li>Subscribe to our mailing list for news and updates! <a
                     href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
-                        src="http://www.runoob.com/images/rss.gif" width="36" height="14"></a></li>
+                        src=".{{ url_for('.static', _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
         </div>
         <!-- Begin Mailchimp Signup Form -->
         <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
