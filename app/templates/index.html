@@ -165,7 +165,7 @@
     class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
+            <a href="/competition={{ Comp.comp_record_hash }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
             <div class="meta">{{ Comp.comp_range }}
                 // Host by 
                 {% for host in Comp.comp_host %}
@@ -224,7 +224,7 @@
     function scrollFunction() {
     // 导航栏  https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp
     // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-    if (document.documentElement.scrollTop > 25) {
+    if (document.documentElement.scrollTop > 20) {
         document.getElementById("navbar").style.padding = "10px 50px";
         document.getElementById("logo").style.fontSize = "25px";
         } else {

@@ -22,6 +22,12 @@ id_type2_checkboxs = [
     {"id": "SP-checkbox", "name": "Speech/Signal Proccessing"},
 ]
 
+type_dict =    {"DM": "Data Mining",
+                "CV" : "Computer Vision",
+                "NLP": "Natural Language Processing",
+                "RL": "Reinforcement Learning/Robotics",
+                "SP": "Speech/Signal Proccessing"}
+
 Func_deadline = lambda x: x['deadline']
 # 严格要求 deadline 的格式：%Y-%m-%d %H:%M:%S
 Filtering_pastcomp = lambda comps: [ comp for comp in comps if int(''.join(comp['deadline'].split()[0].split('-')))>=int(datetime.datetime.today().strftime('%Y%m%d'))]
@@ -41,7 +47,7 @@ def index():
         competitions=info_list,
     )
 
-@app.route("/competition/<comp_record_hash>", )
+@app.route("/competition=<comp_record_hash>", )
 def comp(comp_record_hash):
     addr = Config.ADDRESS_COMP
     info_list = get_api_info(requests.get(addr))
@@ -50,7 +56,8 @@ def comp(comp_record_hash):
     print(info_list)
     return render_template(
         "competition.html",
-        competitions=info_list,
+        Comp=info_list[0],
+        type_dict=type_dict,
     )
 
 # @app.route("/hostby.html")

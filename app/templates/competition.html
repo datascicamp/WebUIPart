@@ -3,12 +3,8 @@
 
 {% block head %}
 {{ super() }}
-<style type="text/css">
 
-</style>
 {% endblock %}
-
-
 
 {% block container %}
 {{ super() }}
@@ -16,70 +12,22 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12">
             <!-- H1 Title -->
-            <h1>Data Science Challenge / Competition
-                <!-- Begin Github star -->
-                <iframe
-                    src="https://ghbtns.com/github-btn.html?user=iphysresearch&repo=DataSciComp&type=star&count=true"
-                    scrolling="0" width="170px" height="20px" frameborder="0"></iframe>
-                <!-- End Github star -->
-            </h1>
+            <h1><a href="{{ Comp.comp_url }}" name="{{ Comp.comp_record_hash }}">{{ Comp.comp_title }}</a></h1>
         </div>
         <div class="meta col-xs-12">
-            <li>Countdowns to <b>ENTRY DEADLINE</b> of popular Data Science Challenges/Competitions.</li>
-            <li>To add/update a challenge or any other advices to me, plesase don't hesitate and send in a
-                <a target="_blank" href="https://github.com/iphysresearch/DataSciComp"
-                    style="background-color:#CCFF66">pull request</a>.
-            </li>
-            <li>
-                <a href="/DataSciComp/hostby.html" style="background-color:#CCFF66">Here</a> offer a list of links to
-                various sources in which you may have an interest.
-            </li>
-            <li>Subscribe to our mailing list for news and updates! <a
-                    href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
-                        src=".{{ url_for('.static', _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
+            <div class="tags">
+                 <!-- https://www.jqueryscript.net/form/Simple-Animated-jQuery-Tags-Input-Plugin-Lovely-Tag.html -->
+                {% for tag1 in Comp.comp_scenario %}
+                    <span class="tag tag-{{ tag1 }}">{{ type_dict[ tag1 ] }}</span>
+                {% endfor %}
+                {% for tag2 in Comp.data_feature %}
+                <span class="tag">{{ tag2 }}</span>
+                {% endfor %}
+                 <!-- <span class="tag to-be-checked">Hah, I can be checked</span> 
+                 <span class="tag to-be-crossed">or crossed</span>  -->
+            </div>
         </div>
     </div>
-
-    <br>
-    <!-- Begin: checkbox -->
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- <form class="form-horizontal">
-                <div class="form-group">
-                    {% for id_checkbox in id_type_checkboxs %}
-                    <div class="col-md-4 col-xs-5">
-                        <div class="checkbox">
-                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
-                                {{ id_checkbox.name }}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </form> -->
-            <form class="form-horizontal">
-                <div class="form-group">
-                    {% for id_checkbox in id_type2_checkboxs %}
-                    <div class="col-md-4 col-xs-5">
-                        <div class="checkbox">
-                            <label><input id="{{ id_checkbox.id }}" class="" type="checkbox"></input>
-                                {{ id_checkbox.name }}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <div class="col-md-4 col-xs-5">
-                        <div class="checkbox">
-                            <label style="color:#FF0033"><input id="rewarded-checkbox" class="" type="checkbox"></input>
-                                Rewards filter
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- End: checkbox -->
     <div class="row">
         <div class="meta col-xs-12">
             <!-- Export all deadlines to
@@ -91,12 +39,12 @@
 </div>
 
 <!-- Begin: Main content -->
-{% for Comp in competitions %}
 <div id="{{ Comp.comp_record_hash }}"
-    class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
+    class="{{ '-Comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="{{ Comp.comp_host_url }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
+            <a href="{{ Comp.comp_url }}" name="{{ Comp.comp_record_hash }}">
+                <b>{% if Comp.comp_subtitle %}{{ Comp.comp_subtitle }}{% else %}{% endif %}</b></a>
             <div class="meta">{{ Comp.comp_range }}
                 // Host by 
                 {% for host in Comp.comp_host %}
@@ -114,8 +62,9 @@
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
-        </div>
-        <div class="col-xs-12 col-sm-6">
+            
+            <hr>
+            <!-- Show deadline -->
             {% if Comp.deadline != 'No deadline' %}
             <span class="timer"></span>
             <div class="deadline">
@@ -125,11 +74,20 @@
             {% else %}
             <div>No Deadline.</div>
             {% endif %}
+            <hr>
+            <!-- Show publish_time/update_time and contributor_id -->
+            <div class="meta">
+                {{ Comp.publish_time }} published by {{ Comp.contributor_id }}
+                <br>
+                {{ Comp.update_time }} updated by {{ Comp.contributor_id }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            screenshot
         </div>
     </div>
     <hr>
 </div>
-{% endfor %}
 <!-- End: Main content -->
 
 <footer>
@@ -144,6 +102,8 @@
 
 {% block script_js %}
 {{ super() }}
+<!-- <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script> -->
+<script src=".{{ url_for('static', _external = False, filename='dist/lovely-tag.js') }}"></script>
 
 {% endblock %}
 
