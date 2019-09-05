@@ -3,6 +3,10 @@ import os
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or '2c445f2022'
+
+    # Identifiers when generating CAPTCHA
+    IDENTIFIERS = 'ABCDEFGHIJKLMNPQRSTUVWXYZ12345789'
+
     ADDRESS_COMP = 'http://45.78.76.192:30600/api/competition/all-competitions'
     # ADDRESS_COMP = 'http://174.137.53.253:30500/api/competition/all-competitions'
 
@@ -20,3 +24,8 @@ class Config(object):
     COMPETITION_SERVICE_IP = '45.78.76.192'
     COMPETITION_SERVICE_PORT = '30600'
     COMPETITION_SERVICE_URL = COMPETITION_SERVICE_IP + ':' + COMPETITION_SERVICE_PORT
+
+    # for captcha supporting api
+    CAPTCHA_SERVICE_IP = '45.78.76.192'
+    CAPTCHA_SERVICE_PORT = '30601'
+    CAPTCHA_SERVICE_URL = CAPTCHA_SERVICE_IP + ':' + CAPTCHA_SERVICE_PORT

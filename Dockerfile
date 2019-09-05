@@ -15,6 +15,7 @@ RUN pip install flask-migrate
 RUN pip install pyjwt
 RUN pip install flask_bootstrap
 RUN pip install python-dotenv
+RUN pip install pillow
 # Expose port
 EXPOSE 5000
 # Run command

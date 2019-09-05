@@ -1,6 +1,9 @@
 import requests
 import logging
 import json
+import datetime
+import random
+import config
 
 
 # 将 bytes 转换为 string
@@ -29,9 +32,20 @@ def get_api_info(request_result):
         # 返回处理好的 list
         return list_content
 
+
 # 生成当前时间 格式为 %Y-%m-%d/%H:%M:%S
 def get_current_datetime():
     return str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+
+# 生成 4 个随机数
+def generate_random_code():
+    code = ''
+    identifiers = config.Config.IDENTIFIERS
+    for item in range(4):
+        text = random.choice(identifiers)
+        code += text
+    return code
 
 
 if __name__ == '__main__':

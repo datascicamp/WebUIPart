@@ -1,7 +1,7 @@
 from app import app
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, flash
 from app.auth.forms import ResetPasswordRequestForm, ResetPasswordForm, RegisterRequestForm, LoginForm, RegisterForm
-from func_pack import get_api_info
+from func_pack import get_api_info, generate_random_code
 from config import Config
 from app.auth import bp
 import requests
@@ -95,14 +95,25 @@ def login_verify():
 @bp.route('/register', methods=['GET'])
 def register_view():
     form = RegisterForm()
-    return render_template('auth/register/register.html', form=form)
+    captcha = dict()
+    captcha['captcha_code'] = generate_random_code()
+    captcha['captcha_url'] = 'http://' + Config.CAPTCHA_SERVICE_URL + '/api/captcha/' + captcha['captcha_code']
+    form.captcha_validate.data = captcha['captcha_code']
+    return render_template('auth/register/register.html', form=form, captcha=captcha)
 
 
 # register post
 @bp.route('/register', methods=['POST'])
 def register_account():
     form = RegisterForm()
+    # POST method
     if form.validate_on_submit():
+        # captcha validate
+        print(form.captcha.data)
+        print(form.captcha_validate.data)
+        if form.captcha.data != form.captcha_validate.data:
+            flash('CAPTCHA is not Correct!', 'error')
+            return redirect(url_for('auth.register_view'))
         # account info
         account_info = dict()
         account_info['account_email'] = form.email.data
