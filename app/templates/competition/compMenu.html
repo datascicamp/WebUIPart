@@ -1,0 +1,54 @@
+{% extends "base_bs.html" %}
+
+<!-- import form receiving model -->
+{% import 'bootstrap/wtf.html' as wtf %}
+
+    {% block app_content %}
+        <!-- ########## -->
+
+        <h1>My Publishing Competitions</h1>
+        <br>
+        <a href="{{ url_for('competition-operator.competition_inserting_view')  }}" class="btn btn-default" role="button">Upload New Competition!</a>
+        <br>
+        <br>
+        <!-- 已发表的言论 -->
+        {% if comp_list %}
+            {% for comp in comp_list %}
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4>{{ comp.comp_title }}</h4>
+                    </div>
+                    <div class="panel-footer">
+                        <b>Last Update Time:   </b> {{ comp.update_time }}
+                    </div>
+                    <div class="panel-footer">
+                        <b>Operations:   </b>
+                        <a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=comp.comp_record_hash) }}"> View </a>
+                        |
+                        <a href="{{ url_for('competition-operator.competition_updating_view', comp_record_hash=comp.comp_record_hash) }}"> Modify </a>
+                        |
+                        <a href="{{ url_for('competition-operator.competition_delete_confirm', comp_record_hash=comp.comp_record_hash) }}"> Delete </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="container">
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading">-->
+                        <!--<b>Administer</b> said:-->
+                    <!--</div>-->
+                    <div class="panel-body">
+                        <h4>Error: Server Down. Please contact the administer.</h4>
+                    </div>
+                    <div class="panel-footer">
+                        <b>Administer</b> at 2019-04-20/17:00:00
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    {% endblock %}
+
+

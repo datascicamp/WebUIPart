@@ -1,0 +1,15 @@
+{% extends "base_bs.html" %}
+<!-- import form receiving model -->
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>Competition Detail </h1>
+    <br>
+    <p>Here are the competition details.  </p>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{{ competition.comp_title }}</h3>
+            <h5>{{ competition.comp_subtitle }}</h5>
+        </div>
+    </div>
+{% endblock %}

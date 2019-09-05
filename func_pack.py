@@ -29,6 +29,10 @@ def get_api_info(request_result):
         # 返回处理好的 list
         return list_content
 
+# 生成当前时间 格式为 %Y-%m-%d/%H:%M:%S
+def get_current_datetime():
+    return str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
 
 if __name__ == '__main__':
     content = requests.get('http://174.137.53.253:30500/api/competition/all-competitions')

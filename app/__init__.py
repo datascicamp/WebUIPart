@@ -21,4 +21,8 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp, url_prefix='/errors')
 
+# blueprint for competition-operator part
+from app.competition import bp as competition_bp
+app.register_blueprint(competition_bp, url_prefix='/competition-operator')
+
 from app import routes

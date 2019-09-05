@@ -1,0 +1,26 @@
+{% extends "base_bs.html" %}
+<!-- import form receiving model -->
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>Delete Confirmation </h1>
+    <br>
+    <h3>Are you sure to DELETE the Competition you posted? </h3>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Just send a form to wtf is enough -->
+            <form method="post">
+                {{ form.csrf_token }}
+                <button class="btn btn-danger btn-lg" type=submit>DELETE Anyway</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div>
+        <h3>Summary of your competition:</h3>
+        <p><b>Competition Title</b> : {{ competition.comp_title }}</p>
+        <p><b>Competition Subtitle</b> : {{ competition.comp_subtitle }}</p>
+        <p><b>Last Update Time</b> : {{ competition.update_time }}</p>
+    </div>
+{% endblock %}
