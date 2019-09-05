@@ -51,11 +51,11 @@
       #navbar {
         overflow: hidden;
         background-color: #f1f1f1;
-        padding: 50px 90px;  /* Large padding which will shrink on scroll (using JS) */
-        transition: 0.4s; /* Adds a transition effect when the padding is decreased */
+        padding: 5px 50px;  /* Large padding which will shrink on scroll (using JS) */ 
+        transition: top 0.3s; /* Transition effect when sliding down (and up) */
         position: fixed; /* Sticky/fixed navbar */
         width: 100%;
-        top: 0;  /* At the top */
+        top: -60px; /* Hide the navbar 50 px outside of the top view */
         z-index: 99;
       }
       /* Style the navbar links */
@@ -71,7 +71,7 @@
       }
       /* Style the logo */
       #navbar #logo {
-        font-size: 35px;
+        font-size: 25px;
         font-weight: bold;
         transition: 0.4s;
       }
@@ -108,7 +108,7 @@
   {% endblock %}
 </head>
 
-<body style="padding-top: 150px;">
+<body>
   
     {% block navbar %}
     <div id="navbar">

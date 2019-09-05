@@ -50,11 +50,11 @@
       #navbar {
         overflow: hidden;
         background-color: #f1f1f1;
-        padding: 10px 50px;  /* Large padding which will shrink on scroll (using JS) */
-        transition: 0.4s; /* Adds a transition effect when the padding is decreased */
+        padding: 5px 50px;  /* Large padding which will shrink on scroll (using JS) */ 
+        transition: top 0.3s; /* Transition effect when sliding down (and up) */
         position: fixed; /* Sticky/fixed navbar */
         width: 100%;
-        top: 0;  /* At the top */
+        top: 0; /* Hide the navbar 50 px outside of the top view */
         z-index: 99;
       }
       /* Style the navbar links */
@@ -122,8 +122,17 @@
 
 
   <div class="container">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-info" role="alert">{{ message }}</div>
+              {% endfor %}
+          {% endif %}
+          {% endwith %}
+          {# application content needs to be provided in the app_content block #}
+          {# So, others templates should write about this part #}
     <!-- <a href="https://github.com/iphysresearch/DataSciComp" style="position: absolute; top: 0; right: 0; border: 0;"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a> -->
-    {% block container %}
+    {% block app_content %}
 
     {% endblock %}
   </div>

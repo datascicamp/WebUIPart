@@ -222,20 +222,18 @@
 
     window.onscroll = function() {scrollFunction()};
     function scrollFunction() {
-    // 导航栏  https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp
-    // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-    if (document.documentElement.scrollTop > 20) {
-        document.getElementById("navbar").style.padding = "10px 50px";
-        document.getElementById("logo").style.fontSize = "25px";
-        } else {
-        document.getElementById("navbar").style.padding = "50px 90px";
-        document.getElementById("logo").style.fontSize = "35px";
-        }        
+    // 导航栏  https://www.w3schools.com/howto/howto_js_navbar_slide.asp
+    // When the user scrolls down 20px from the top of the document, slide down the navbar
+    // When the user scrolls to the top of the page, slide up the navbar (50px out of the top view)
+
     // Scroll Back To Top Button   https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
     // When the user scrolls down 20px from the top of the document, show the button        
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("navbar").style.top = "0";
         document.getElementById("myBtn").style.display = "block";
     } else {
+        document.getElementById("navbar").style.top = "-60px";
+        //document.getElementById("navbar").style.padding = "0";
         document.getElementById("myBtn").style.display = "none";
     }
     }
