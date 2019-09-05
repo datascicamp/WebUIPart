@@ -100,7 +100,6 @@ def register_view():
     # store the captcha code into session
     session['captcha_code'] = captcha['captcha_code']
     captcha['captcha_url'] = 'http://' + Config.CAPTCHA_SERVICE_URL + '/api/captcha/' + captcha['captcha_code']
-    form.captcha_validate.label = captcha['captcha_code']
     return render_template('auth/register/register.html', form=form, captcha=captcha)
 
 
@@ -111,8 +110,8 @@ def register_account():
     # POST method
     if form.validate_on_submit():
         # captcha validate ( get from session )
-        if form.captcha.data != session.get('captcha_code'):
-            flash('CAPTCHA is not Correct!', 'error')
+        if str(form.captcha.data).upper() != session.get('captcha_code'):
+            flash('CAPTCHA is not Correct!', 'danger')
             return redirect(url_for('auth.register_view'))
         # account info
         account_info = dict()
@@ -123,6 +122,7 @@ def register_account():
         if result.status_code == 200:
             return redirect(url_for('auth.home_view', account_email=form.email.data))
         else:
+            flash('Please use an different email address.', 'warning')
             return redirect(url_for('auth.register_view'))
 
 

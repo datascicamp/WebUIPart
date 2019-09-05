@@ -36,13 +36,22 @@
 
     {% block content %}
             <div class="container">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-info" role="alert">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'info' %}
+                            <div class="alert alert-info" role="alert">{{ message }}</div>
+                        {% elif category == 'success' %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% elif category == 'warning' %}
+                            <div class="alert alert-warning" role="alert">{{ message }}</div>
+                        {% elif category == 'danger' %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% endif %}
+
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
             {# application content needs to be provided in the app_content block #}
             {# So, others templates should write about this part #}
             {% block app_content %}{% endblock %}
