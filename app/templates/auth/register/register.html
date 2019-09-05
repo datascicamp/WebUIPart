@@ -19,9 +19,9 @@
                 {{ form.re_password(size = 64) }}
                 {% if captcha %}
                 <img src="{{ captcha.captcha_url }}" alt="captcha" width="130" height="50">
-                {% endif %}
                 {{ form.captcha.label }}
                 {{ form.captcha(size = 8) }}
+                {% endif %}
                 <button class="btn btn-info btn-lg" type=submit>Submit</button>
             </form>
         </div>

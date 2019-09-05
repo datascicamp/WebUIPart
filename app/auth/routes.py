@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request, session
 from app.auth.forms import ResetPasswordRequestForm, ResetPasswordForm, RegisterRequestForm, LoginForm, RegisterForm
 from func_pack import get_api_info, generate_random_code
 from config import Config
@@ -97,8 +97,10 @@ def register_view():
     form = RegisterForm()
     captcha = dict()
     captcha['captcha_code'] = generate_random_code()
+    # store the captcha code into session
+    session['captcha_code'] = captcha['captcha_code']
     captcha['captcha_url'] = 'http://' + Config.CAPTCHA_SERVICE_URL + '/api/captcha/' + captcha['captcha_code']
-    form.captcha_validate.data = captcha['captcha_code']
+    form.captcha_validate.label = captcha['captcha_code']
     return render_template('auth/register/register.html', form=form, captcha=captcha)
 
 
@@ -108,10 +110,8 @@ def register_account():
     form = RegisterForm()
     # POST method
     if form.validate_on_submit():
-        # captcha validate
-        print(form.captcha.data)
-        print(form.captcha_validate.data)
-        if form.captcha.data != form.captcha_validate.data:
+        # captcha validate ( get from session )
+        if form.captcha.data != session.get('captcha_code'):
             flash('CAPTCHA is not Correct!', 'error')
             return redirect(url_for('auth.register_view'))
         # account info

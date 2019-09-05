@@ -34,6 +34,5 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     re_password = PasswordField('Entry again', validators=[DataRequired(), EqualTo('password')])
     captcha = StringField('CAPTCHA', validators=[DataRequired()])
-    captcha_validate = StringField('Captcha validate')
     submit = SubmitField('Register')
 
