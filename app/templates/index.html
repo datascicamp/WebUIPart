@@ -2,45 +2,17 @@
 
 {% block head %}
 {{ super() }}
-<style type="text/css">
-    a:hover {
-        color: #0099CC
-    }
-
-    /*.row:hover{border-style: None solid;
-        border-color:#666666;
-        border-width:1px;
-    }*/
-    #menu {
-        /* https://www.w3.org/Style/Examples/007/menus.zh_CN.html#L384 */
-        position: fixed;
-        right: 0;
-        top: 50%;
-        width: 8em;
-        margin-top: -2.5em;
-    }
-    /* Scroll Back To Top Button */
-    #myBtn {
-        display: none; /* Hidden by default */
-        position: fixed; /* Fixed/sticky position */
-        bottom: 20px; /* Place the button at the bottom of the page */
-        right: 30px; /* Place the button 30px from the right */
-        z-index: 99; /* Make sure it does not overlap */
-        border: none; /* Remove borders */
-        outline: none; /* Remove outline */
-        background-color: red; /* Set a background color */
-        color: white; /* Text color */
-        cursor: pointer; /* Add a mouse pointer on hover */
-        padding: 15px; /* Some padding */
-        border-radius: 10px; /* Rounded corners */
-        font-size: 18px; /* Increase font size */
+<style> 
+    #navbar {
+        top: -60px; /* Hide the navbar 60 px outside of the top view */
       }
-      
-      #myBtn:hover {
-        background-color: #555; /* Add a dark-grey background on hover */
-      }
-
 </style>
+<script id="mcjs">
+    ! function (c, h, i, m, p) {
+      m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p)
+    }(document, "script",
+      "https://chimpstatic.com/mcjs-connected/js/users/9fc96c0c089d4508de8f618a5/a064ee28e34f00ca929271c58.js");
+  </script>
 {% endblock %}
 
 
@@ -82,7 +54,6 @@
                 font: 14px Helvetica, Arial, sans-serif;
                 width: 500px;
             }
-
             /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
         </style>
@@ -172,7 +143,7 @@
                 {% if loop.index > 1 %}
                 &
                 {% endif %}
-                <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
+                <a href="{{ host.comp_host_url }}">{{ host.comp_host_name }}</a>
                 {% endfor %}
                 {% if Comp.prize_currency %}
                 // Prize: {{ Comp.prize_amount }} {{ Comp.prize_currency }}
@@ -218,83 +189,69 @@
 
 {% block script_js %}
 {{ super() }}
-<script type="text/javascript" charset="utf-8">
+<!-- navbar; myBtn -->
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Nav_Btn.js') }}"></script>
+<!-- system-time -->
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/ShowSysTime.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Cookies_Refresh.js') }}"></script>
 
-    window.onscroll = function() {scrollFunction()};
-    function scrollFunction() {
-    // 导航栏  https://www.w3schools.com/howto/howto_js_navbar_slide.asp
-    // When the user scrolls down 20px from the top of the document, slide down the navbar
-    // When the user scrolls to the top of the page, slide up the navbar (50px out of the top view)
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134245065-1"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Google_Analytics.js') }}"></script>
 
-    // Scroll Back To Top Button   https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
-    // When the user scrolls down 20px from the top of the document, show the button        
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("navbar").style.top = "0";
-        document.getElementById("myBtn").style.display = "block";
-    } else {
-        document.getElementById("navbar").style.top = "-60px";
-        //document.getElementById("navbar").style.padding = "0";
-        document.getElementById("myBtn").style.display = "none";
-    }
-    }
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
-    
-    // Your system time
-    var t = null;
-    t = setTimeout(showTime,1000);//开始执行
-    function showTime()
-    {
-       clearTimeout(t);//清除定时器
-       dt = new Date();
-       document.getElementById("system-time").innerHTML = 'Your current server time: '+dt;
-       t = setTimeout(showTime,1000); //设定定时器，循环执行             
-    } 
-      // https://blog.csdn.net/dcb_ripple/article/details/54347339
-      var Cookie = {  
-        setCookie:function(name,value,option){  
-            var str = name + "=" + escape(value);  
-            if(option){  
-                if(option.expireDays){  
-                    var date = new Date();  
-                    var ms = option.expireDays * 24 * 3600 * 1000;  
-                    date.setTime(date.getTime() + ms);  
-                    str += "; expires=" + date.toGMTString();  
-                }  
-                if(option.path)str += ";path=" + option.path;  
-                if(option.domain)str += ";domain=" + option.domain;  
-                if(option.secure)str += ";true";  
-            }  
-            document.cookie = str;  
-        },  
-        getCookie:function(name){  
-            var cookies = document.cookie.split(";");  
-            for(var i=0; i<cookies.length;i++){  
-                var arr=cookies[i].split("=");  
-                if(arr[0].trim()==name){  
-                    return unescape(arr[1]);  
-                }  
-            }  
-            return "";  
-        },  
-        delCookie:function(name){  
-            this.setCookie(name,"",{expireDays:-1});  
-        }  
-    }  
-    window.onload=function(){  
-        if("1"==Cookie.getCookie("diffmaker")){  
-            //alert("找到Cookie，我将不再刷新页面，并删除Cookie");  
-            Cookie.delCookie("diffmaker");  
-        }else{  
-            //alert("没有找到Cookie，我将刷新页面!");  
-            Cookie.setCookie("diffmaker","1",null);  
-            //window.location.reload(true);  // Development....
-        }  
-    }  
-    </script>
+<!-- form :checkbox ; /?sub= -->
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Checkboxes.js') }}"></script>
+
+<script> // Begin: Deadline Control + Calendar
+$(function() {
+    // https://github.com/carlsednaoui/add-to-calendar-buttons
+    {% for Comp in competitions %}
+        {% if Comp.deadline != 'No deadline' %}
+    // adjust date according to deadline timezone
+    //   var timezone = "Etc/GMT-8" ;
+    //   var timezone = "Asia/Shanghai" ;
+    var timezone = "{{ Comp.timezone }}" ;
+    var compDate = moment.tz("{{ Comp.deadline }}", timezone);
+
+    // render countdown timer
+    $('#{{ Comp.comp_record_hash }} .timer').countdown(compDate.toDate(), function(event) {
+        $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+    });
+    $('#{{ Comp.comp_record_hash }} .deadline-time').html(compDate.toString());
+    // add calendar button
+    var myCalendar = createCalendar({
+        options: {
+        class: 'calendar-obj',
+        // You can pass an ID. If you don't, one will be generated for you
+        id: '{{ Comp.comp_record_hash }}'
+        },
+        data: {
+        // Event title
+        title: '[Entry Deadline] {{ Comp.comp_title }}',
+        // Event start date
+        start: compDate.toDate(), 
+        end: compDate.toDate(), 
+            // You can also choose to set an end time
+            // If an end time is set, this will take precedence over duration
+            // end: new Date('June 15, 2013 23:00'),
+        // Event duration (IN MINUTES)
+        duration: 60,
+            // Event Description
+            description: '{{ Comp.comp_description }}'
+        }
+    });
+    document.querySelector('#{{ Comp.comp_record_hash }} .calendar').appendChild(myCalendar);
+    //console.log(myCalendar);
+    // check if date has passed, add 'past' class to it
+    var today = moment();
+    if (today.diff(compDate) > 0)
+        $('#{{ Comp.comp_record_hash }}').addClass('past');
+        {% endif %}
+    {% endfor %}
+
+});    // End: Deadline Control + Calendar
+</script>
+
 {% endblock %}
 
 
