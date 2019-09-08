@@ -114,6 +114,8 @@ body *::selection {
 
 .container {
   max-width: 980px;
+  padding-top: 100px;
+  }
 }
 
 .top-strip {
