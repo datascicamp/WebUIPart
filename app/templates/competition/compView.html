@@ -12,6 +12,11 @@
 <script type="text/javascript" src="{{ url_for('static', _external = True, filename='js/jquery.min.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='deadlines_css/deadlines.css') }}" media="screen,projection">    
+<script type="text/javascript"
+    src="{{ url_for('static', _external = True, filename='js/jquery.countdown.min.js') }}"></script>
+  <script src="{{ url_for('static', _external = True, filename='js/moment.min.js') }}"></script>
+  <script src="{{ url_for('static', _external = True, filename='js/moment-timezone-with-data.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', _external = True, filename='dist/lovely-tag.css') }}">
 <!-- icon -->
 <link rel="icon" href="{{ url_for('static', _external = True, filename='img/favicon.ico') }}">
 <style> 
@@ -23,19 +28,148 @@
 
 
 {% block container %}
-    <h1>Competition Detail </h1>
-    <br>
-    <p>Here are the competition details.  </p>
+{{ super() }}
+<div class="page-header">
     <div class="row">
-        <div class="col-md-4">
-            <h3>{{ competition.comp_title }}</h3>
-            <h5>{{ competition.comp_subtitle }}</h5>
+        <div class="col-xs-12 col-sm-12">
+            <!-- H1 Title -->
+            <h1><a href="{{ competition.comp_url }}" name="{{ competition.comp_record_hash }}">{{ competition.comp_title }}</a></h1>
+        </div>
+        <div class="meta col-xs-12">
+            <div class="tags">
+                 <!-- https://www.jqueryscript.net/form/Simple-Animated-jQuery-Tags-Input-Plugin-Lovely-Tag.html -->
+                {% for tag1 in competition.comp_scenario %}
+                    <span class="tag tag-{{ tag1 }}">{{ type_dict[ tag1 ] }}</span>
+                {% endfor %}
+                {% for tag2 in competition.data_feature %}
+                <span class="tag">{{ tag2 }}</span>
+                {% endfor %}
+                 <!-- <span class="tag to-be-checked">Hah, I can be checked</span> 
+                 <span class="tag to-be-crossed">or crossed</span>  -->
+            </div>
         </div>
     </div>
-{% endblock %}
+    <div class="row">
+        <div class="meta col-xs-12">
+            <!-- Export all deadlines to
+            <a href="https://calendar.google.com/calendar/r?cid=http://aideadlin.es/ai-deadlines.ics">Google Calendar</a>
+             . -->
+            <p id="system-time"></p>
+        </div>
+    </div>
+</div>
 
+<!-- Begin: Main content -->
+<div id="{{ competition.comp_record_hash }}"
+    class="{{ '-Comp '.join(competition.comp_scenario) }}-comp {% if competition.prize_currency %}{% else %}un{% endif %}rewarded-comp">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <a href="{{ competition.comp_url }}" name="{{ competition.comp_record_hash }}">
+                <b>{% if competition.comp_subtitle %}{{ competition.comp_subtitle }}{% else %}{% endif %}</b></a>
+            <div class="meta">{{ competition.comp_range }}
+                // Host by 
+                {% for host in competition.comp_host %}
+                {% if loop.index > 1 %}
+                &
+                {% endif %}
+                <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
+                {% endfor %}
+                {% if competition.prize_currency %}
+                // Prize: {{ competition.prize_amount }} {{ competition.prize_currency }}
+                {% else %}
+                {% endif %}</div>
+            {% if competition.comp_description %}
+             <div class="note"><b>Note</b>: {{ competition.comp_description | safe }} <!-- safe 渲染时不转义 -->
+                <!-- More info <a href="http://baidu.com">here</a> -->
+            </div>
+            {% endif %}
+            
+            <hr>
+            <!-- Show deadline -->
+            {% if competition.deadline != 'No deadline' %}
+            <span class="timer"></span>
+            <div class="deadline">
+                <div>Entry Deadline: <span class="deadline-time"></span></div>
+            </div>
+            <div class="calendar"></div>
+            {% else %}
+            <div>No Deadline.</div>
+            {% endif %}
+            <hr>
+            <!-- Show publish_time/update_time and contributor_id -->
+            <div class="meta">
+                {{ competition.publish_time }} published by {{ competition.contributor_id }}
+                <br>
+                {{ competition.update_time }} updated by {{ competition.contributor_id }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            screenshot
+        </div>
+    </div>
+    <hr>
+</div>
+<!-- End: Main content -->
+
+{% endblock %}
 
 
 {% block script_js %}
 {{ super() }}
+<!-- <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script> -->
+<!-- <script src="https://libs.baidu.com/jquery/1.11.2/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<script src="{{ url_for('static', _external = True, filename='dist/lovely-tag.js') }}"></script>
+
+<script>
+    // Begin: Deadline Control + Calendar
+    $(function() {
+      // https://github.com/carlsednaoui/add-to-calendar-buttons
+          {% if competition.deadline != 'No deadline' %}
+        // adjust date according to deadline timezone
+      //   var timezone = "Etc/GMT-8" ;
+      //   var timezone = "Asia/Shanghai" ;
+        var timezone = "{{ competition.timezone }}" ;
+        var compDate = moment.tz("{{ competition.deadline }}", timezone);
+
+        // render countdown timer
+        $('#{{ competition.comp_record_hash }} .timer').countdown(compDate.toDate(), function(event) {
+          $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+        });
+        $('#{{ competition.comp_record_hash }} .deadline-time').html(compDate.toString());
+        // add calendar button
+        var myCalendar = createCalendar({
+          options: {
+            class: 'calendar-obj',
+            // You can pass an ID. If you don't, one will be generated for you
+            id: '{{ competition.comp_record_hash }}'
+          },
+          data: {
+            // Event title
+            title: '[Entry Deadline] {{ competition.comp_title }}',
+            // Event start date
+            start: compDate.toDate(), 
+            end: compDate.toDate(), 
+              // You can also choose to set an end time
+              // If an end time is set, this will take precedence over duration
+              // end: new Date('June 15, 2013 23:00'),
+            // Event duration (IN MINUTES)
+            duration: 60,
+              // Event Description
+              description: '{{ competition.comp_description }}'
+          }
+        });
+        document.querySelector('#{{ competition.comp_record_hash }} .calendar').appendChild(myCalendar);
+        //console.log(myCalendar);
+        // check if date has passed, add 'past' class to it
+        var today = moment();
+        if (today.diff(compDate) > 0)
+          $('#{{ competition.comp_record_hash }}').addClass('past');
+          {% endif %}
+
+    
+  });
+      // End: Deadline Control + Calendar
+
+  </script>
 {% endblock %}

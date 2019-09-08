@@ -70,10 +70,15 @@ def competition_list_view(user_id):
 def competition_detail_view(comp_record_hash):
     comp_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                '/api/competition/competition-record-hash/' + str(comp_record_hash)
+    type_dict =    {"DM": "Data Mining",
+                    "CV" : "Computer Vision",
+                    "NLP": "Natural Language Processing",
+                    "RL": "Reinforcement Learning/Robotics",
+                    "SP": "Speech/Signal Proccessing"}               
     result = requests.get(comp_url)
     if result.status_code == 200:
         competition = get_api_info(result)[0]
-        return render_template('competition/compView.html', competition=competition)
+        return render_template('competition/compView.html', competition=competition, type_dict=type_dict)
 
 
 # competition update page
