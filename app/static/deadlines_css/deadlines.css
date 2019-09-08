@@ -202,6 +202,12 @@ pre {
 footer {
   font-size: 13px;
 }
+/* 动态为footer添加类fixed-bottom */
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  width:100%;
+}
 
 .past {
   opacity: 0.5;

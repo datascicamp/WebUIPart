@@ -34,7 +34,6 @@
         <meta name="msapplication-TileColor" content="#00aba9">
         <meta name="msapplication-TileImage" content="./static/img/mstile-144x144.png">
         <meta name="theme-color" content="#ffffff"> -->
-
   {% endblock %}
 </head>
 
@@ -64,19 +63,18 @@
       <a href="/">DataSciCamp</a>
       .
       All Rights Reserved
-      <!-- is maintained by
-      <a href="https://github.com/iphysresearch">@Herb</a> -->
+      is maintained by
+      <a href="https://github.com/iphysresearch">@Herb</a>
       .
       <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
     </footer>
-    <hr>
-    {% endblock %}
 
-  </div>
+
+    {% endblock %}
 
 
   {% block script_js %}
-
+    <script type="text/javascript" charset="utf-8" src="{{ url_for('static', _external = True, filename='js/FixedFooter.js') }}"></script>
   {% endblock %}
 </body>
 
