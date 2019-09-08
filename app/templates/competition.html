@@ -3,7 +3,7 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href=".{{ url_for('.static', _external = False, filename='dist/lovely-tag.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', _external = True, filename='dist/lovely-tag.css') }}">
 {% endblock %}
 
 {% block container %}

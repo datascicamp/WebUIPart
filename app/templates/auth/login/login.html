@@ -12,8 +12,8 @@
 <title>Data Science Competitions Deadlines</title>
 <meta name="description" content="Countdowns to popular Data Science Competitions deadlines">
 <meta name="author" content="Herb">
-<link rel="stylesheet" type="text/css" href="..{{ url_for('static', _external = False, filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
-<link rel="stylesheet" type="text/css" href="..{{ url_for('static', _external = False, filename='deadlines_css/deadlines.css') }}" media="screen,projection">    
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='deadlines_css/deadlines.css') }}" media="screen,projection">    
 <!-- icon -->
 <link rel="icon" href="..{{ url_for('static', filename='img/favicon.ico') }}">
 <style> 
