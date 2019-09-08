@@ -1,8 +1,28 @@
-{% extends "base_bs.html" %}
+{% extends "base_index.html" %}
 <!-- import form receiving model -->
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block app_content %}
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Science Competitions Deadlines</title>
+<meta name="description" content="Countdowns to popular Data Science Competitions deadlines">
+<meta name="author" content="Herb">
+<script type="text/javascript" src="{{ url_for('static', _external = True, filename='js/jquery.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, filename='deadlines_css/deadlines.css') }}" media="screen,projection">    
+<!-- icon -->
+<link rel="icon" href="{{ url_for('static', _external = True, filename='img/favicon.ico') }}">
+<style> 
+  #navbar {/* 导航栏 */
+      top: 0; /* Hide the navbar 50 px outside of the top view */
+  }
+      </style>      
+{% endblock %}
+
+
+{% block container %}
+{{ super() }}
     <h1>Home page </h1>
     <br>
     <p>Your account email is : {{ account.account_email }}</p>
@@ -16,4 +36,10 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+
+
+{% block script_js %}
+{{ super() }}
 {% endblock %}
