@@ -17,18 +17,92 @@
   #navbar {/* 导航栏 */
       top: 0; /* Hide the navbar 50 px outside of the top view */
   }
+  .form-competition {
+    width: 100%;
+    /* max-width: 400px; */
+    padding: 15px;
+    margin: 0 auto;
+  }
       </style>
 {% endblock %}
 
 {% block container %}
-    <h1>Competition Info Submit </h1>
-    <br>
-    <p>Upload Competition Information right now. </p>
     <div class="row">
-        <div class="col-md-4">
+        <div class="form-group">
             <!-- Just send a form to wtf is enough -->
-            {{ wtf.quick_form(form) }}
+            <!-- {{ wtf.quick_form(form) }} -->
+
+            <!-- <form class="form" method="post">
+                {{ form.csrf_token }}
+                <label>{{ form.comp_title.label }}</label>
+                {{ form.comp_title }}
+                <label>{{ form.comp_subtitle.label }}</label>
+                {{ form.comp_subtitle }}
+                <label>{{ form.comp_range.label }}</label>
+                {{ form.comp_range }}                                
+
+            </form> -->
         </div>
+
+            <form class="form-competition" method="post">
+                {{ form.csrf_token }}
+                <h1 class="h3 mb-3 font-weight-normal">Competition Info Submit</h1>
+                <p>Upload Competition Information right now.</p>
+            <div class="form-group">
+                {{ form.comp_title.label }}
+                <p>{{ form.comp_title }}</p>
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            <div class="form-group">
+                {{ form.comp_subtitle.label }}
+                <p>{{ form.comp_subtitle }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_range.label }}
+                <p>{{ form.comp_range }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_url.label }}
+                <p>{{ form.comp_url }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_description.label }}
+                <p>{{ form.comp_description }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_host_name.label }}
+                <p>{{ form.comp_host_name }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_host_url.label }}
+                <p>{{ form.comp_host_url }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.prize_currency.label }}
+                <p>{{ form.prize_currency }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.prize_amount.label }}
+                <p>{{ form.prize_amount }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.deadline.label }}
+                <p>{{ form.deadline }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.timezone.label }}
+                <p>{{ form.timezone }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.comp_scenario.label }}
+                <p>{{ form.comp_scenario }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.data_feature.label }}
+                <p>{{ form.data_feature }}</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>        
     </div>
 {% endblock %}
 
