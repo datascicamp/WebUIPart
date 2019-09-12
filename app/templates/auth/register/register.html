@@ -19,6 +19,12 @@
   #navbar {/* 导航栏 */
       top: 0; /* Hide the navbar 50 px outside of the top view */
   }
+  .form-signup {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+  }
       </style>      
 {% endblock %}
 
@@ -26,13 +32,9 @@
 {% block container %}
 {{ super() }}
 
-    <h1>Register</h1>
-    <br>
-    <p>Register and start your trip right now. </p>
     <div class="row">
-        <div class="col-md-4">
             <!-- Just send a form to wtf is enough -->
-            <form method="post">
+            <!-- <form method="post">
                 {{ form.csrf_token }}
                 {{ form.email.label }}
                 {{ form.email(size = 64) }}
@@ -46,8 +48,35 @@
                 {{ form.captcha(size = 8) }}
                 {% endif %}
                 <button class="btn btn-info btn-lg" type=submit>Submit</button>
-            </form>
-        </div>
+            </form> -->
+
+        <form class="form-signup" method="post">
+                {{ form.csrf_token }}
+                <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+                <p>Register and start your trip right now. </p>
+            <div class="form-group">
+                {{ form.email.label }}
+                <p>{{ form.email(size = 64) }}</p>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                {{ form.password.label }}
+                <p>{{ form.password(size = 64) }}</p>
+            </div>
+            <div class="form-group">
+                {{ form.re_password.label }}
+                <p>{{ form.re_password(size = 64) }}</p>
+            </div>
+            {% if captcha %}
+            <div class="form-group">
+                <img src="{{ captcha.captcha_url }}" alt="captcha" width="130" height="50">
+                <!-- {{ form.captcha.label }} -->
+                <p></p>
+                <p>{{ form.captcha(size = 8) }}</p>
+            </div>
+            {% endif %}
+        <button class="btn btn-info btn-lg" type=submit>Submit</button>
+        </form>
     </div>
 {% endblock %}
 
