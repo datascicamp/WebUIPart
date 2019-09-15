@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h4>{{ comp.comp_title }}</h4>
+                        <h4><a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=comp.comp_record_hash) }}">{{ comp.comp_title }}</a></h4>
                     </div>
                     <div class="panel-footer">
                         <b>Last Update Time:   </b> {{ comp.update_time }}

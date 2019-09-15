@@ -62,12 +62,22 @@ class RegisterForm(FlaskForm):
             "autofocus": "",
         },
     )
+    nickname = StringField(
+        "Username",
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "Enter your Username",
+            "required": "",
+            "autofocus": "",
+        },
+    )
     password = PasswordField(
         "Password",
         validators=[DataRequired()],
         render_kw={
             "class": "form-control",
-            "placeholder": "Enter your password!",
+            "placeholder": "Enter your Password!",
             "required": "",
             "autofocus": "",
         },
@@ -77,7 +87,7 @@ class RegisterForm(FlaskForm):
         validators=[DataRequired(), EqualTo("password")],
         render_kw={
             "class": "form-control",
-            "placeholder": "Enter your password again!",
+            "placeholder": "Enter your Password again!",
             "required": "",
             "autofocus": "",
         },

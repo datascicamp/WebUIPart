@@ -136,7 +136,7 @@
     class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="/competition={{ Comp.comp_record_hash }}" name="{{ Comp.comp_record_hash }}"><b>{{ Comp.comp_title }}</b></a>
+            <a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=Comp.comp_record_hash) }}"><b>{{ Comp.comp_title }}</b></a>
             <div class="meta">{{ Comp.comp_range }}
                 // Host by 
                 {% for host in Comp.comp_host %}

@@ -38,6 +38,8 @@
                 {{ form.csrf_token }}
                 {{ form.email.label }}
                 {{ form.email(size = 64) }}
+                {{ form.nickname.label }}
+                {{ form.nickname(size = 64) }}
                 {{ form.password.label }}
                 {{ form.password(size = 64) }}
                 {{ form.re_password.label }}
@@ -58,6 +60,11 @@
                 {{ form.email.label }}
                 <p>{{ form.email(size = 64) }}</p>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                {{ form.nickname.label }}
+                <p>{{ form.nickname(size = 64) }}</p>
+                <small id="nicknameHelp" class="form-text text-muted">Your lovely( or awesome ) username please. </small>
             </div>
             <div class="form-group">
                 {{ form.password.label }}

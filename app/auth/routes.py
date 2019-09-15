@@ -85,7 +85,7 @@ def login_verify():
         if result.status_code == 200:
             account = get_api_info(result)[0]
             if account['account_id'] != -1:
-                return redirect(url_for('auth.home_view', account_email=account_email))
+                return redirect(url_for('auth.home_view', account_id=account['account_id']))
             else:
                 return render_template('auth/login/login.html', form=form)
 
@@ -128,27 +128,33 @@ def register_account():
 
 # ---------------- Home Page ---------------- #
 # home page
-@bp.route('/home/<string:account_email>', methods=['GET'])
-def home_view(account_email):
+@bp.route('/home/<string:account_id>', methods=['GET'])
+def home_view(account_id):
     form = RegisterRequestForm()
-    account_info_url = 'http://' + Config.ACCOUNT_SERVICE_URL + '/api/account/account-email/' +\
-        str(account_email)
+    account_info_url = 'http://' + Config.ACCOUNT_SERVICE_URL + '/api/account/account-id/' +\
+        str(account_id)
     result = requests.get(account_info_url)
     if result.status_code == 200:
         account_info = get_api_info(result)[0]
         return render_template('auth/individual/home_page.html', form=form, account=account_info)
     else:
-        return redirect('auth.login_view')
+        return redirect(url_for('auth.login_view'))
 
 
 # sending registration email
-@bp.route('/home/<string:account_email>', methods=['POST'])
-def home_post(account_email):
+@bp.route('/home/<string:account_id>', methods=['POST'])
+def home_post(account_id):
     form_register_request = RegisterRequestForm()
     if form_register_request.validate_on_submit():
-        dest_url = 'http://' + Config.MAIL_SENDING_SERVICE_URL + '/api/registration/email-sending-by-account-email'
-        result = requests.post(dest_url, data={'account_email': account_email})
+        account_info_url = 'http://' + Config.ACCOUNT_SERVICE_URL + '/api/account/account-id/' + \
+                           str(account_id)
+        result = requests.get(account_info_url)
         if result.status_code == 200:
-            return render_template('auth/email/inform_register_email.html')
+            account_info = get_api_info(result)[0]
+            print(account_info)
+            dest_url = 'http://' + Config.MAIL_SENDING_SERVICE_URL + '/api/registration/email-sending-by-account-email'
+            result = requests.post(dest_url, data={'account_email': account_info['account_email']})
+            if result.status_code == 200:
+                return render_template('auth/email/inform_register_email.html')
 
 

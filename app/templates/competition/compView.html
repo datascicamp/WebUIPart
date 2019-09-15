@@ -33,10 +33,12 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12">
             <!-- H1 Title -->
-            <h1><a href="{{ competition.comp_url }}" name="{{ competition.comp_record_hash }}">{{ competition.comp_title }}</a></h1>
+            <h1>Competition Name: {{ competition.comp_title }}</h1>
+            <p><b>Competition Url:</b> {{ competition.comp_url }} </p>
         </div>
         <div class="meta col-xs-12">
             <div class="tags">
+                <b>Tags: </b>
                  <!-- https://www.jqueryscript.net/form/Simple-Animated-jQuery-Tags-Input-Plugin-Lovely-Tag.html -->
                 {% for tag1 in competition.comp_scenario %}
                     <span class="tag tag-{{ tag1 }}">{{ type_dict[ tag1 ] }}</span>
@@ -64,22 +66,27 @@
     class="{{ '-Comp '.join(competition.comp_scenario) }}-comp {% if competition.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="{{ competition.comp_url }}" name="{{ competition.comp_record_hash }}">
-                <b>{% if competition.comp_subtitle %}{{ competition.comp_subtitle }}{% else %}{% endif %}</b></a>
-            <div class="meta">{{ competition.comp_range }}
-                // Host by 
-                {% for host in competition.comp_host %}
-                {% if loop.index > 1 %}
-                &
-                {% endif %}
-                <a href="{{ host.comp_host_url }}" style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
+            {% if competition.comp_subtitle %}<b>Subtitle: </b><p>{{ competition.comp_subtitle }}</p>{% else %}{% endif %}
+            <div class="meta">
+                <p><b>Time Range:</b> {{ competition.comp_range }}</p>
+
+                <p><b>Host By:</b>
+                    {% for host in competition.comp_host %}
+                    {% if loop.index > 1 %}
+                    &
+                    {% endif %}
+                    <p>
+                        <b>Name:</b> <a style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
+                        <b>Website:</b> {{ host.comp_host_url }}
+                    </p>
+                </p>
                 {% endfor %}
                 {% if competition.prize_currency %}
-                // Prize: {{ competition.prize_amount }} {{ competition.prize_currency }}
+                <p><b>Prize:</b> {{ competition.prize_amount }} {{ competition.prize_currency }}</p>
                 {% else %}
                 {% endif %}</div>
             {% if competition.comp_description %}
-             <div class="note"><b>Note</b>: {{ competition.comp_description | safe }} <!-- safe 渲染时不转义 -->
+             <div class="note"><b>Description:</b> {{ competition.comp_description | safe }} <!-- safe 渲染时不转义 -->
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
