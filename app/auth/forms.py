@@ -47,6 +47,16 @@ class LoginForm(FlaskForm):
             "autofocus": "",
         },
     )
+    captcha = StringField(
+        "CAPTCHA",
+        validators=[DataRequired()],
+        render_kw={
+            "class": "form-control",
+            "placeholder": "CAPTCHA",
+            "required": "",
+            "autofocus": "",
+        },
+    )
     submit = SubmitField("Login")
 
 

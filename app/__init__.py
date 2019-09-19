@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask_login import LoginManager
 from config import Config
 from flask_bootstrap import Bootstrap
@@ -9,9 +9,6 @@ app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 
 login = LoginManager(app)
-# 这里是指定 @login_required 标签重定位时的位置
-# 根据 routes.py 中的视图函数来进行 login 界面的跳转
-login.login_view = 'login_view'
 
 # blueprint for auth part
 from app.auth import bp as auth_bp
@@ -24,5 +21,10 @@ app.register_blueprint(errors_bp, url_prefix='/errors')
 # blueprint for competition-operator part
 from app.competition import bp as competition_bp
 app.register_blueprint(competition_bp, url_prefix='/competition-operator')
+
+
+# 这里是指定 @login_required 标签重定位时的位置
+# 根据 routes.py 中的视图函数来进行 login 界面的跳转
+login.login_view = 'auth.login_view'
 
 from app import routes

@@ -41,13 +41,19 @@ def index():
     addr = 'http://' + Config.COMPETITION_SERVICE_URL + '/api/competition/all-competitions'
     info_list = get_api_info(requests.get(addr))
     info_list = sorted(Filtering_pastcomp(info_list), key=Func_deadline) # Filtering and sort the list by deadline
-    print(info_list)
     return render_template(
         "index.html",
         # id_type_checkboxs=id_type_checkboxs,
         id_type2_checkboxs=id_type2_checkboxs,
         competitions=info_list,
     )
+
+
+# -------------- Log Out --------------- #
+@app.route('/logout', methods=['GET'])
+def logout_func():
+    logout_user()
+    return redirect(url_for('auth.login_view'))
 
 
 # @app.route("/competition=<comp_record_hash>", )

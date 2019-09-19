@@ -25,6 +25,8 @@
 {{ super() }}
     <h1>Home page </h1>
     <br>
+    <h3>Greeting, {{ account.account_nickname }}!</h3>
+    <br>
     <p>Your account email is : {{ account.account_email }}</p>
     {% if account.account_status == 'unverify' %}
         <br>

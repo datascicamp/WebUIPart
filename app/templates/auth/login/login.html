@@ -89,10 +89,15 @@
                     <!-- <label for="exampleInputPassword1">Password</label> -->
                     <!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
                 </div>
-                <!-- <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div> -->
+                {% if captcha %}
+                <div class="form-group">
+                    <img src="{{ captcha.captcha_url }}" alt="captcha" width="130" height="50">
+                    <!-- {{ form.captcha.label }} -->
+                    <p></p>
+                    <p>{{ form.captcha(size = 8) }}</p>
+                    <small id="emailHelp" class="form-text text-muted">Please validate within 10 minutes.</small>
+                </div>
+                {% endif %}
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

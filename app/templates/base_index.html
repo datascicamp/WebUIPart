@@ -41,14 +41,20 @@
   
     {% block navbar %}
     <div id="navbar">
-        <a href="#default" id="logo">DataSciCamp</a>
+        <a href="{{ url_for('index') }}" id="logo">DataSciCamp</a>
         <div id="navbar-right">
-          <a href="{{ url_for('index') }}">Competitions</a>
-          <a class="active" href="#home">Home</a>
-          <a href="#contact">Contact</a>
-          <a href="#about">About</a>
+            <a href="{{ url_for('index') }}">Competitions</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+            {% if current_user.is_anonymous %}
+                <a class="active" href="{{ url_for('auth.register_view') }}">Register</a>
+                <a href="{{ url_for('auth.login_view') }}">Login</a>
+            {% else %}
+                <a class="active" href="{{ url_for('auth.home_view', account_id=current_user.account_id) }}">Home</a>
+                <a href="{{ url_for('logout_func') }}">Logout</a>
+            {% endif %}
         </div>
-      </div>
+    </div>
     {% endblock %}
 
 
