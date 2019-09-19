@@ -44,8 +44,6 @@
         <a href="{{ url_for('index') }}" id="logo">DataSciCamp</a>
         <div id="navbar-right">
             <a href="{{ url_for('index') }}">Competitions</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
             {% if current_user.is_anonymous %}
                 <a class="active" href="{{ url_for('auth.register_view') }}">Register</a>
                 <a href="{{ url_for('auth.login_view') }}">Login</a>
