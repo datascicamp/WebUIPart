@@ -10,11 +10,10 @@ Add . /var/app/webServerDir
 RUN pip install Flask
 RUN pip install Flask-wtf
 RUN pip install psycopg2-binary
-RUN pip install flask-sqlalchemy
-RUN pip install flask-migrate
 RUN pip install pyjwt
 RUN pip install bootstrap-flask
-RUN pip install flask_bootstrap
+RUN pip install requests
+RUN pip install flask-login
 RUN pip install python-dotenv
 RUN pip install pillow
 # Expose port
