@@ -105,9 +105,15 @@
             <hr>
             <!-- Show publish_time/update_time and contributor_id -->
             <div class="meta">
-                {{ competition.publish_time }} published by {{ competition.contributor_id }}
+                {{ competition.publish_time }} published by
+                <a href="{{ url_for('competition-operator.competition_list_view', user_id=competition.contributor_id) }}">
+                    {{ competition.account_nickname }}
+                </a>
                 <br>
-                {{ competition.update_time }} updated by {{ competition.contributor_id }}
+                {{ competition.update_time }} updated by
+                <a href="{{ url_for('competition-operator.competition_list_view', user_id=competition.contributor_id) }}">
+                    {{ competition.account_nickname }}
+                </a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">

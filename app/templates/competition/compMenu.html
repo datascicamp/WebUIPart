@@ -25,11 +25,16 @@
     {% block container %}
         <!-- ########## -->
 
+        {% if auth.operator == True %}
         <h1>My Publishing Competitions</h1>
-        <br>
-        <a href="{{ url_for('competition-operator.competition_inserting_view')  }}" class="btn btn-default" role="button">Upload New Competition!</a>
-        <br>
-        <br>
+            <br>
+            <a href="{{ url_for('competition-operator.competition_inserting_view')  }}" class="btn btn-default" role="button">
+                Upload New Competition!
+            </a>
+        {% else %}
+        <h1>{{ auth.account_nickname }}'s Publishing Competitions</h1>
+            <br>
+        {% endif %}
         <!-- 已发表的言论 -->
         {% if comp_list %}
             {% for comp in comp_list %}

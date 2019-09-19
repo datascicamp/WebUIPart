@@ -154,6 +154,10 @@
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
+            <b>Published by</b>:
+            <a href="{{ url_for('competition-operator.competition_list_view', user_id=Comp.contributor_id) }}">
+                {{ Comp.account_nickname | safe }} <!-- safe 渲染时不转义 -->
+            </a>
         </div>
         <div class="col-xs-12 col-sm-6">
             {% if Comp.deadline != 'No deadline' %}

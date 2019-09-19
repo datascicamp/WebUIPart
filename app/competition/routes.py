@@ -67,6 +67,15 @@ def competition_list_view(user_id):
     else:
         auth = {'operator': True}
 
+    # account function
+    account_url = 'http://' + Config.ACCOUNT_SERVICE_URL + \
+                  '/api/account/account-id/' + str(user_id)
+    result = requests.get(account_url)
+    if result.status_code == 200 and len(get_api_info(result)) > 0:
+        auth['account_nickname'] = get_api_info(result)[0]['account_nickname']
+    else:
+        auth['account_nickname'] = 'Unknown'
+
     # main function process below
     own_competition_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                           '/api/competition/contributor-id/' + str(user_id)
@@ -89,6 +98,14 @@ def competition_detail_view(comp_record_hash):
     result = requests.get(comp_url)
     if result.status_code == 200:
         competition = get_api_info(result)[0]
+        # account function
+        account_url = 'http://' + Config.ACCOUNT_SERVICE_URL + \
+                      '/api/account/account-id/' + str(competition['contributor_id'])
+        result = requests.get(account_url)
+        if result.status_code == 200 and len(get_api_info(result)) > 0:
+            competition['account_nickname'] = get_api_info(result)[0]['account_nickname']
+        else:
+            competition['account_nickname'] = 'Unknown'
         return render_template('competition/compView.html', competition=competition, type_dict=type_dict)
 
 
