@@ -94,7 +94,7 @@ class RegisterForm(FlaskForm):
     )
     re_password = PasswordField(
         "Confirm",
-        validators=[DataRequired(), EqualTo("password")],
+        validators=[DataRequired()],
         render_kw={
             "class": "form-control",
             "placeholder": "Enter your Password again!",

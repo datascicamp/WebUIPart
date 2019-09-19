@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for
 from config import Config
 from func_pack import get_api_info
-from flask_login import current_user, login_user, login_required, logout_user
+from flask_login import logout_user
 from app.models import User
 import requests
 import datetime
@@ -55,6 +55,11 @@ def logout_func():
     logout_user()
     return redirect(url_for('auth.login_view'))
 
+
+# Founders of the website
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
 
 # @app.route("/competition=<comp_record_hash>", )
 # def comp(comp_record_hash):

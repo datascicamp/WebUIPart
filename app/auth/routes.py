@@ -108,7 +108,7 @@ def login_verify():
         if form.validate_on_submit():
             # captcha validate ( get from session )
             if str(form.captcha.data).upper() != session.get('captcha_code'):
-                flash('CAPTCHA is not Correct!', 'danger')
+                flash('CAPTCHA is not Correct!', 'warning')
                 return redirect(url_for('auth.login_view'))
         account_email = form.email.data
         password = form.password.data
@@ -122,7 +122,8 @@ def login_verify():
                 login_user(verified_user)
                 return redirect(url_for('auth.home_view', account_id=account['account_id']))
             else:
-                return render_template('auth/login/login.html', form=form)
+                flash('Email unknown or Password is not correct.', 'danger')
+                return redirect(url_for('auth.login_view'))
 
 
 # -------------- Register View --------------- #
@@ -164,7 +165,10 @@ def register_account():
     if form.validate_on_submit():
         # captcha validate ( get from session )
         if str(form.captcha.data).upper() != session.get('captcha_code'):
-            flash('CAPTCHA is not Correct!', 'danger')
+            flash('CAPTCHA is not Correct!', 'warning')
+            return redirect(url_for('auth.register_view'))
+        if form.password.data != form.re_password.data:
+            flash('Passwords should be the same.', 'warning')
             return redirect(url_for('auth.register_view'))
         # account info
         account_info = dict()
@@ -177,7 +181,7 @@ def register_account():
             account = get_api_info(result)[0]
             return redirect(url_for('auth.login_view', account_id=account['account_id']))
         else:
-            flash('Please use an different email address.', 'warning')
+            flash('Please use an different email address.', 'danger')
             return redirect(url_for('auth.register_view'))
 
 

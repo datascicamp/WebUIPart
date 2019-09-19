@@ -5,11 +5,13 @@ from werkzeug.http import HTTP_STATUS_CODES
 from func_pack import get_api_info, get_current_datetime
 from config import Config
 from app.competition import bp
+from flask_login import current_user, login_required
 import requests
 
 
 # ------------ Competition Routing -------------- #
 # competition inserting
+@login_required
 @bp.route('/competition-inserting', methods=['GET'])
 def competition_inserting_view():
     form = CompetitionInsertForm()
@@ -17,6 +19,7 @@ def competition_inserting_view():
 
 
 # competition inserting function
+@login_required
 @bp.route('/competition-inserting', methods=['POST'])
 def competition_inserting_function():
     form = CompetitionInsertForm()
@@ -35,7 +38,7 @@ def competition_inserting_function():
         new_competition['timezone'] = form.timezone.data
         new_competition['update_time'] = get_current_datetime()
         new_competition['publish_time'] = get_current_datetime()
-        new_competition['contributor_id'] = '233'
+        new_competition['contributor_id'] = str(current_user.account_id)
 
         new_competition['comp_description'] = form.comp_description.data
         host_list = [{'comp_host_name': form.comp_host_name.data, 'comp_host_url': form.comp_host_url.data}]
@@ -54,15 +57,23 @@ def competition_inserting_function():
 
 
 # my competition list
+@login_required
 @bp.route('/competition-list/<string:user_id>', methods=['GET'])
 def competition_list_view(user_id):
-    # ToDo: Auth recognization
+    # check user's authentication by account_id in url whether match current_user.account_id
+    # Mention!! Type of current_user.account_id is not string!
+    if str(current_user.account_id) != user_id:
+        auth = {'operator': False}
+    else:
+        auth = {'operator': True}
+
+    # main function process below
     own_competition_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                           '/api/competition/contributor-id/' + str(user_id)
     result = requests.get(own_competition_url)
     if result.status_code == 200:
         owner_comps_list = get_api_info(result)
-        return render_template('competition/compMenu.html', comp_list=owner_comps_list)
+        return render_template('competition/compMenu.html', comp_list=owner_comps_list, auth=auth)
 
 
 # competition detail view
@@ -83,13 +94,20 @@ def competition_detail_view(comp_record_hash):
 
 # competition update page
 @bp.route('/competition-updating/<string:comp_record_hash>', methods=['GET'])
+@login_required
 def competition_updating_view(comp_record_hash):
-    # ToDo: Auth recognization
     comp_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                '/api/competition/competition-record-hash/' + str(comp_record_hash)
     result = requests.get(comp_url)
     if result.status_code == 200:
         competition = get_api_info(result)[0]
+        # check user's authentication by account_id in url whether match current_user.account_id
+        # Mention!! Type of current_user.account_id is not string!
+        if str(current_user.account_id) != str(competition['contributor_id']):
+            # back to detail viewing page
+            return redirect(url_for('competition-operator.competition_detail_view', comp_record_hash=comp_record_hash))
+
+        # main function process below
         form = CompetitionUpdateForm()
         form.comp_title.data = competition['comp_title']
         form.comp_subtitle.data = competition['comp_subtitle']
@@ -109,9 +127,9 @@ def competition_updating_view(comp_record_hash):
 
 # competition update post
 @bp.route('/competition-updating/<string:comp_record_hash>', methods=['POST'])
+@login_required
 def competition_updating_function(comp_record_hash):
     form = CompetitionUpdateForm()
-    # ToDo: Auth recognization
     if form.validate_on_submit():
         # Get competition info
         comp_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
@@ -119,6 +137,13 @@ def competition_updating_function(comp_record_hash):
         result = requests.get(comp_url)
         if result.status_code == 200:
             mod_competition = get_api_info(result)[0]
+
+            # check user's authentication by account_id in url whether match current_user.account_id
+            # Mention!! Type of current_user.account_id is not string!
+            if str(current_user.account_id) != str(mod_competition['contributor_id']):
+                # back to detail viewing page
+                return redirect(
+                    url_for('competition-operator.competition_detail_view', comp_record_hash=comp_record_hash))
 
             # Update Info
             update_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
@@ -152,6 +177,7 @@ def competition_updating_function(comp_record_hash):
 
 # competition delete view
 @bp.route('/competition-deleting/<string:comp_record_hash>', methods=['GET', 'POST'])
+@login_required
 def competition_delete_confirm(comp_record_hash):
     form = CompetitionDeleteForm()
     # Get competition info
@@ -161,8 +187,16 @@ def competition_delete_confirm(comp_record_hash):
     # Functional Part
     if form.validate_on_submit():
         if result.status_code == 200:
-            # ToDo: Auth recognization
             user_id = get_api_info(result)[0]['contributor_id']
+
+            # check user's authentication by account_id in url whether match current_user.account_id
+            # Mention!! Type of current_user.account_id is not string!
+            if str(current_user.account_id) != str(user_id):
+                # back to detail viewing page
+                return redirect(
+                    url_for('competition-operator.competition_detail_view', comp_record_hash=comp_record_hash))
+
+            # main function process below
             delete_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                          '/api/competition/competition-record-hash/' + str(comp_record_hash)
             requests.delete(delete_url)
@@ -170,7 +204,16 @@ def competition_delete_confirm(comp_record_hash):
     # View Part
     else:
         if result.status_code == 200:
-            # ToDo: Auth recognization
+            user_id = get_api_info(result)[0]['contributor_id']
+
+            # check user's authentication by account_id in url whether match current_user.account_id
+            # Mention!! Type of current_user.account_id is not string!
+            if str(current_user.account_id) != str(user_id):
+                # back to detail viewing page
+                return redirect(
+                    url_for('competition-operator.competition_detail_view', comp_record_hash=comp_record_hash))
+
+            # main function process below
             competition = get_api_info(result)[0]
             return render_template('competition/compDelete.html', form=form, competition=competition)
 

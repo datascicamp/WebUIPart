@@ -43,11 +43,15 @@
                     </div>
                     <div class="panel-footer">
                         <b>Operations:   </b>
+                        {% if auth.operator == True %}
                         <a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=comp.comp_record_hash) }}"> View </a>
                         |
                         <a href="{{ url_for('competition-operator.competition_updating_view', comp_record_hash=comp.comp_record_hash) }}"> Modify </a>
                         |
                         <a href="{{ url_for('competition-operator.competition_delete_confirm', comp_record_hash=comp.comp_record_hash) }}"> Delete </a>
+                        {% else %}
+                        <a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=comp.comp_record_hash) }}"> View </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -55,14 +59,15 @@
         {% else %}
             <div class="container">
                 <div class="panel panel-default">
-                    <!--<div class="panel-heading">-->
-                        <!--<b>Administer</b> said:-->
-                    <!--</div>-->
+                    <div class="panel-heading">
+                        <b>No Competitions.</b>
+                    </div>
                     <div class="panel-body">
-                        <h4>Error: Server Down. Please contact the administer.</h4>
+                        <h4>Come and post competitions which you're interested in!</h4>
+                        <h4>We really need your help to enrich competitions information.</h4>
                     </div>
                     <div class="panel-footer">
-                        <b>Administer</b> at 2019-04-20/17:00:00
+                        by <b>DataSciCamp Team</b>
                     </div>
                 </div>
             </div>
