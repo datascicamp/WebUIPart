@@ -12,6 +12,7 @@ RUN pip install Flask-wtf
 RUN pip install psycopg2-binary
 RUN pip install pyjwt
 RUN pip install bootstrap-flask
+RUN pip install flask-bootstrap
 RUN pip install requests
 RUN pip install flask-login
 RUN pip install python-dotenv
