@@ -41,7 +41,7 @@ class CompetitionInsertForm(FlaskForm):
             "required": "",
             "autofocus": "",
         },)
-    comp_url = StringField("Competition Url", validators=[DataRequired(), URL()],render_kw={
+    comp_url = StringField("Competition Url", validators=[DataRequired(),],render_kw={
             "class": "form-control",
             "placeholder": "URL",
             "required": "",
@@ -107,7 +107,16 @@ class CompetitionUpdateForm(FlaskForm):
     prize_amount = StringField("Prize")
     deadline = StringField("Competition Deadline", validators=[DataRequired()])
     timezone = StringField("Timezone", validators=[DataRequired()])
-    comp_scenario = StringField("Competition Scenario", validators=[DataRequired()])
+    comp_scenario = SelectMultipleField(
+        "Competition Scenario",
+        choices=[
+            ("DM", "Data Mining"),
+            ("CV", "Computer Vision"),
+            ("NLP", "Natural Language Processing"),
+            ("SP", "Speech/Signal Proccessing"),
+        ],
+        validators=[DataRequired()],
+    )
     data_feature = StringField("Data Feature", validators=[DataRequired()])
     submit = SubmitField("Submit")
 

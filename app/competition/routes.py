@@ -84,7 +84,7 @@ def competition_list_view(user_id):
                           '/api/competition/contributor-id/' + str(user_id)
     result = requests.get(own_competition_url)
     if result.status_code == 200:
-        owner_comps_list = get_api_info(result)
+        owner_comps_list = get_api_info(result).reverse()
         return render_template('competition/compMenu.html', comp_list=owner_comps_list, auth=auth)
 
 
@@ -126,7 +126,7 @@ def competition_updating_view(comp_record_hash):
     comp_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
                '/api/competition/competition-record-hash/' + str(comp_record_hash)
     result = requests.get(comp_url)
-    if result.status_code == 200:
+    if result.status_code == 200 and len(get_api_info(result)) >= 1:
         competition = get_api_info(result)[0]
         # check user's authentication by account_id in url whether match current_user.account_id
         # Mention!! Type of current_user.account_id is not string!
@@ -147,7 +147,10 @@ def competition_updating_view(comp_record_hash):
         form.prize_amount.data = competition['prize_amount']
         form.deadline.data = competition['deadline']
         form.timezone.data = competition['timezone']
-        form.comp_scenario.data = competition['comp_scenario'][0]
+        comp_scenario = list()
+        for scenario in competition['comp_scenario']:
+            comp_scenario.append(scenario)
+        form.comp_scenario.data = comp_scenario
         form.data_feature.data = competition['data_feature'][0]
         return render_template('competition/compUpdate.html', form=form)
 
@@ -190,7 +193,7 @@ def competition_updating_function(comp_record_hash):
             host_list = [{'comp_host_name': form.comp_host_name.data, 'comp_host_url': form.comp_host_url.data}]
             mod_competition['comp_host'] = str(host_list)
 
-            comp_scenario_list = [str(form.comp_scenario.data)]
+            comp_scenario_list = str_to_right_type(str(form.comp_scenario.data))
             mod_competition['comp_scenario'] = str(comp_scenario_list)
             data_feature = [str(form.data_feature.data)]
             mod_competition['data_feature'] = str(data_feature)
