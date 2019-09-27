@@ -1,8 +1,8 @@
 from app import app
-from flask import render_template, url_for, redirect, jsonify
+from flask import render_template, url_for, redirect, jsonify, flash
 from app.competition.forms import CompetitionInsertForm, CompetitionUpdateForm, CompetitionDeleteForm
 from werkzeug.http import HTTP_STATUS_CODES
-from func_pack import get_api_info, get_current_datetime
+from func_pack import get_api_info, get_current_datetime, str_to_right_type
 from config import Config
 from app.competition import bp
 from flask_login import current_user, login_required
@@ -44,7 +44,7 @@ def competition_inserting_function():
         host_list = [{'comp_host_name': form.comp_host_name.data, 'comp_host_url': form.comp_host_url.data}]
         new_competition['comp_host'] = str(host_list)
 
-        comp_scenario_list = [str(form.comp_scenario.data)]
+        comp_scenario_list = str_to_right_type(str(form.comp_scenario.data))
         new_competition['comp_scenario'] = str(comp_scenario_list)
         data_feature = [str(form.data_feature.data)]
         new_competition['data_feature'] = str(data_feature)
@@ -54,6 +54,9 @@ def competition_inserting_function():
             competition = get_api_info(result)[0]
             comp_record_hash = competition['comp_record_hash']
             return redirect(url_for('competition-operator.competition_detail_view', comp_record_hash=comp_record_hash))
+        else:
+            flash('Something wrong happened! Can not upload competition', 'danger')
+            return redirect(url_for('competition-operator.competition_inserting_view'))
 
 
 # my competition list

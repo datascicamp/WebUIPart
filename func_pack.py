@@ -4,6 +4,7 @@ import json
 import datetime
 import random
 import config
+import ast
 
 
 # 将 bytes 转换为 string
@@ -46,6 +47,11 @@ def generate_random_code():
         text = random.choice(identifiers)
         code += text
     return code
+
+
+# Revert list-like string to list
+def str_to_right_type(string):
+    return ast.literal_eval(str(string))
 
 
 if __name__ == '__main__':
