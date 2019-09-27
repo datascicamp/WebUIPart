@@ -8,6 +8,7 @@ from wtforms import (
     SelectMultipleField,
     TextAreaField,
     BooleanField,
+    DateTimeField,
     DateField,
 )
 from wtforms.validators import DataRequired, EqualTo, Email, URL
@@ -69,10 +70,10 @@ class CompetitionInsertForm(FlaskForm):
     prize_currency = StringField("Currency Type")
     prize_amount = StringField("Prize")
     # Text Field类型，文本输入框，必须输入是"年-月-日 时:分:秒"格式的日期
-    deadline = DateField(
+    deadline = DateTimeField(
         "Entry Deadline", format="%Y-%m-%d %H:%M:%S", render_kw={
             "class": "form-control",
-            "placeholder": "Ex: %s" %datetime.datetime.today().strftime(format="%Y-%m-%d %H:%M:%S"),
+            "placeholder": "Ex: %s" % datetime.datetime.today().strftime(format="%Y-%m-%d %H:%M:%S"),
             "required": "",
             "autofocus": "",
         },
@@ -112,7 +113,15 @@ class CompetitionUpdateForm(FlaskForm):
     comp_host_url = StringField("Competition Host Url", validators=[DataRequired()])
     prize_currency = StringField("Currency Type")
     prize_amount = StringField("Prize")
-    deadline = StringField("Competition Deadline", validators=[DataRequired()])
+    # Text Field类型，文本输入框，必须输入是"年-月-日 时:分:秒"格式的日期
+    deadline = DateTimeField(
+        "Entry Deadline", format="%Y-%m-%d %H:%M:%S", render_kw={
+            "class": "form-control",
+            "placeholder": "Ex: %s" % datetime.datetime.today().strftime(format="%Y-%m-%d %H:%M:%S"),
+            "required": "",
+            "autofocus": "",
+        },
+    )
     timezone = SelectField(
         "Timezone",
         choices=[

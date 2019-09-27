@@ -7,6 +7,7 @@ from config import Config
 from app.competition import bp
 from flask_login import current_user, login_required
 import requests
+import datetime
 
 
 # ------------ Competition Routing -------------- #
@@ -145,7 +146,7 @@ def competition_updating_view(comp_record_hash):
         form.comp_host_url.data = competition['comp_host'][0]['comp_host_url']
         form.prize_currency.data = competition['prize_currency']
         form.prize_amount.data = competition['prize_amount']
-        form.deadline.data = competition['deadline']
+        form.deadline.data = datetime.datetime.strptime(competition['deadline'], '%Y-%m-%d %H:%M:%S')
         form.timezone.data = competition['timezone']
         comp_scenario = list()
         for scenario in competition['comp_scenario']:
