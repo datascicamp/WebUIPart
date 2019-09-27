@@ -43,11 +43,11 @@
     <div id="navbar">
         <a href="{{ url_for('index') }}" id="logo">DataSciCamp</a>
         <div id="navbar-right">
-            <a href="{{ url_for('index') }}">Competitions</a>
             {% if current_user.is_anonymous %}
-                <a class="active" href="{{ url_for('auth.register_view') }}">Register</a>
+                <a href="{{ url_for('auth.register_view') }}">Register</a>
                 <a href="{{ url_for('auth.login_view') }}">Login</a>
             {% else %}
+                <a class="alert-danger" href="{{ url_for('competition-operator.competition_inserting_view') }}">Upload Now!</a>
                 <a href="{{ url_for('competition-operator.competition_list_view', user_id=current_user.account_id) }}">Panel</a>
                 <a class="active" href="{{ url_for('auth.home_view', account_id=current_user.account_id) }}">Home</a>
                 <a href="{{ url_for('logout_func') }}">Logout</a>

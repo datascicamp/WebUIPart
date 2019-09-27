@@ -92,7 +92,7 @@
                 </p>
                 {% endfor %}
                 {% if competition.prize_currency %}
-                <p><b>Prize:</b> {{ competition.prize_amount }} {{ competition.prize_currency }}</p>
+                <p><b>Prize:</b> {{ competition.prize_amount }} <b>Type:</b> {{ competition.prize_currency }}</p>
                 {% else %}
                 {% endif %}</div>
             {% if competition.comp_description %}

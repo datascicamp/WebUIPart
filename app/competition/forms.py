@@ -77,7 +77,14 @@ class CompetitionInsertForm(FlaskForm):
             "autofocus": "",
         },
     )
-    timezone = StringField("Timezone", validators=[DataRequired()])
+    timezone = SelectField(
+        "Timezone",
+        choices=[
+            ("UTC", "UTC"),
+            ("Asia/Shanghai", "Asia/Shanghai"),
+        ],
+        validators=[DataRequired()],
+    )
     comp_scenario = SelectMultipleField(
         "Competition Scenario",
         choices=[
@@ -106,7 +113,14 @@ class CompetitionUpdateForm(FlaskForm):
     prize_currency = StringField("Currency Type")
     prize_amount = StringField("Prize")
     deadline = StringField("Competition Deadline", validators=[DataRequired()])
-    timezone = StringField("Timezone", validators=[DataRequired()])
+    timezone = SelectField(
+        "Timezone",
+        choices=[
+            ("UTC", "UTC"),
+            ("Asia/Shanghai", "Asia/Shanghai"),
+        ],
+        validators=[DataRequired()],
+    )
     comp_scenario = SelectMultipleField(
         "Competition Scenario",
         choices=[
