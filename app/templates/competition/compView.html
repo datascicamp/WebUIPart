@@ -29,6 +29,16 @@
 
 {% block container %}
 {{ super() }}
+{% if auth.operator == True %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <b>Operations:   </b>
+                    <a href="{{ url_for('competition-operator.competition_updating_view', comp_record_hash=competition.comp_record_hash) }}"> Modify </a>
+                    |
+                    <a href="{{ url_for('competition-operator.competition_delete_confirm', comp_record_hash=competition.comp_record_hash) }}"> Delete </a>
+            </div>
+        </div>
+{% endif %}
 <div class="page-header">
     <div class="row">
         <div class="col-xs-12 col-sm-12">

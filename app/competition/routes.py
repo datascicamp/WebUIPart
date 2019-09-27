@@ -109,7 +109,14 @@ def competition_detail_view(comp_record_hash):
             competition['account_nickname'] = get_api_info(result)[0]['account_nickname']
         else:
             competition['account_nickname'] = 'Unknown'
-        return render_template('competition/compView.html', competition=competition, type_dict=type_dict)
+        # check user's authentication by account_id in url whether match current_user.account_id
+        # Mention!! Type of current_user.account_id is not string!
+        if str(current_user.account_id) != competition['contributor_id']:
+            auth = {'operator': False}
+        else:
+            auth = {'operator': True}
+        return render_template('competition/compView.html', competition=competition, auth=auth,
+                               type_dict=type_dict)
 
 
 # competition update page
