@@ -43,7 +43,7 @@
             </li>
             <li>Subscribe to our mailing list for news and updates! <a
                     href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
-                        src=".{{ url_for('.static', _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
+                        src=".{{ url_for('.static', _scheme="https", _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
         </div>
         <!-- Begin Mailchimp Signup Form -->
         <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
@@ -188,17 +188,17 @@
 {% block script_js %}
 {{ super() }}
 <!-- navbar; myBtn -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Nav_Btn.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _scheme="https", _external = False, filename='js/Nav_Btn.js') }}"></script>
 <!-- system-time -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/ShowSysTime.js') }}"></script>
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Cookies_Refresh.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _scheme="https", _external = False, filename='js/ShowSysTime.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _scheme="https", _external = False, filename='js/Cookies_Refresh.js') }}"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134245065-1"></script>
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Google_Analytics.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _scheme="https", _external = False, filename='js/Google_Analytics.js') }}"></script>
 
 <!-- form :checkbox ; /?sub= -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Checkboxes.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _scheme="https", _external = False, filename='js/Checkboxes.js') }}"></script>
 
 <script> // Begin: Deadline Control + Calendar
 $(function() {
