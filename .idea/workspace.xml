@@ -41,14 +41,14 @@
         <counts>
           <entry key="Dockerfile" value="109" />
           <entry key="flaskenv" value="90" />
-          <entry key="html" value="2898" />
+          <entry key="html" value="2900" />
           <entry key="py" value="3889" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Dockerfile" value="109" />
-          <entry key="HTML" value="2898" />
+          <entry key="HTML" value="2900" />
           <entry key="PLAIN_TEXT" value="90" />
           <entry key="Python" value="3889" />
         </counts>
@@ -75,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/competition/forms.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="560">
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/competition/compUpdate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+            <state relative-caret-position="-532">
+              <caret line="58" column="36" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -126,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/competition/compInsert.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-299">
-              <caret line="14" column="111" selection-start-line="14" selection-start-column="111" selection-end-line="14" selection-end-column="111" />
+            <state relative-caret-position="348">
+              <caret line="28" selection-start-line="28" selection-end-line="106" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -179,6 +179,7 @@
       <find>account_nick</find>
       <find>insert</find>
       <find>external = False</find>
+      <find>jquery.min.js</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,7 +211,6 @@
         <option value="$PROJECT_DIR$/app/templates/competition/compDelete.html" />
         <option value="$PROJECT_DIR$/app/templates/competition/compInsert.html" />
         <option value="$PROJECT_DIR$/app/templates/competition/compMenu.html" />
-        <option value="$PROJECT_DIR$/app/templates/competition/compUpdate.html" />
         <option value="$PROJECT_DIR$/app/templates/errors/404.html" />
         <option value="$PROJECT_DIR$/app/templates/errors/500.html" />
         <option value="$PROJECT_DIR$/func_pack.py" />
@@ -222,6 +222,7 @@
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/app/templates/auth/individual/home_page.html" />
         <option value="$PROJECT_DIR$/app/templates/base_index.html" />
+        <option value="$PROJECT_DIR$/app/templates/competition/compUpdate.html" />
       </list>
     </option>
   </component>
@@ -391,7 +392,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21387696" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21387696" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -405,7 +406,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.26385543" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.26385543" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -676,20 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/competition/compUpdate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/competition/compInsert.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-299">
-          <caret line="14" column="111" selection-start-line="14" selection-start-column="111" selection-end-line="14" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/competition/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="560">
@@ -697,6 +684,20 @@
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/competition/compInsert.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="28" selection-start-line="28" selection-end-line="106" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/competition/compUpdate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-532">
+          <caret line="58" column="36" lean-forward="true" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
         </state>
       </provider>
     </entry>
