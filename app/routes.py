@@ -42,16 +42,6 @@ def index():
     info_list = get_api_info(requests.get(addr))
     info_list = sorted(Filtering_pastcomp(info_list), key=Func_deadline) # Filtering and sort the list by deadline
 
-    # account function
-    for competition in info_list:
-        account_url = 'http://' + Config.ACCOUNT_SERVICE_URL + \
-                      '/api/account/account-id/' + str(competition['contributor_id'])
-        result = requests.get(account_url)
-        if result.status_code == 200 and len(get_api_info(result)) > 0:
-            competition['account_nickname'] = get_api_info(result)[0]['account_nickname']
-        else:
-            competition['account_nickname'] = 'Unknown'
-
     return render_template(
         "index.html",
         # id_type_checkboxs=id_type_checkboxs,

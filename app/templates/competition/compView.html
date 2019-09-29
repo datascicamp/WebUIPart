@@ -117,12 +117,12 @@
             <div class="meta">
                 {{ competition.publish_time }} published by
                 <a href="{{ url_for('competition-operator.competition_list_view', user_id=competition.contributor_id) }}">
-                    {{ competition.account_nickname }}
+                    {{ competition.contributor_name }}
                 </a>
                 <br>
                 {{ competition.update_time }} updated by
                 <a href="{{ url_for('competition-operator.competition_list_view', user_id=competition.contributor_id) }}">
-                    {{ competition.account_nickname }}
+                    {{ competition.contributor_name }}
                 </a>
             </div>
         </div>

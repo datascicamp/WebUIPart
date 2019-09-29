@@ -2,7 +2,8 @@ from app import app
 from flask import render_template, url_for, redirect, jsonify, flash
 from app.competition.forms import CompetitionInsertForm, CompetitionUpdateForm, CompetitionDeleteForm
 from werkzeug.http import HTTP_STATUS_CODES
-from func_pack import get_api_info, get_current_datetime, str_to_right_type
+from func_pack import get_api_info, get_current_datetime, str_to_right_type,\
+    get_account_info_by_account_id
 from config import Config
 from app.competition import bp
 from flask_login import current_user, login_required
@@ -23,6 +24,13 @@ def competition_inserting_view():
 @login_required
 @bp.route('/competition-inserting', methods=['POST'])
 def competition_inserting_function():
+    # auth process
+    if current_user.is_authenticated is True:
+        account = get_account_info_by_account_id(current_user.account_id)
+    else:
+        return redirect(url_for('auth.login_view'))
+    # process end
+
     form = CompetitionInsertForm()
     if form.validate_on_submit():
         insert_url = 'http://' + Config.COMPETITION_SERVICE_URL + \
@@ -40,6 +48,7 @@ def competition_inserting_function():
         new_competition['update_time'] = get_current_datetime()
         new_competition['publish_time'] = get_current_datetime()
         new_competition['contributor_id'] = str(current_user.account_id)
+        new_competition['contributor_name'] = str(account['account_nickname'])
 
         new_competition['comp_description'] = form.comp_description.data
         host_list = [{'comp_host_name': form.comp_host_name.data, 'comp_host_url': form.comp_host_url.data}]
@@ -102,14 +111,6 @@ def competition_detail_view(comp_record_hash):
     result = requests.get(comp_url)
     if result.status_code == 200:
         competition = get_api_info(result)[0]
-        # account function
-        account_url = 'http://' + Config.ACCOUNT_SERVICE_URL + \
-                      '/api/account/account-id/' + str(competition['contributor_id'])
-        result = requests.get(account_url)
-        if result.status_code == 200 and len(get_api_info(result)) > 0:
-            competition['account_nickname'] = get_api_info(result)[0]['account_nickname']
-        else:
-            competition['account_nickname'] = 'Unknown'
         # check user's authentication by account_id in url whether match current_user.account_id
         # Mention!! Type of current_user.account_id is not string!
         if str(current_user.account_id) != competition['contributor_id']:
