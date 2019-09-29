@@ -94,7 +94,8 @@ def competition_list_view(user_id):
                           '/api/competition/contributor-id/' + str(user_id)
     result = requests.get(own_competition_url)
     if result.status_code == 200:
-        owner_comps_list = get_api_info(result).reverse()
+        owner_comps_list = get_api_info(result)
+        owner_comps_list.reverse()
         return render_template('competition/compMenu.html', comp_list=owner_comps_list, auth=auth)
 
 
