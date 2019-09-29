@@ -28,16 +28,22 @@
     <h3>Greeting, {{ account.account_nickname }}!</h3>
     <br>
     <p>Your account email is : {{ account.account_email }}</p>
-    {% if account.account_status == 'unverify' %}
-        <br>
-        <h4>The last step: Verify Your Email</h4>
-        <div class="row">
-            <div class="col-md-4">
-                <!-- Just send a form to wtf is enough -->
-                {{ wtf.quick_form(form) }}
-            </div>
-        </div>
-    {% endif %}
+    <br>
+    <p>Contact us by sending email to <b>datascicamp@yeah.net</b></p>
+    <p>We are very delighted to receive your advices!</p>
+    <p>Sincerely, DataSciCamp Team.</p>
+    <br>
+{#    {% if account.account_status == 'unverify' %}#}
+{#        <br>#}
+{#        <h4>The last step: Verify Your Email</h4>#}
+{#        <div class="row">#}
+{#            <div class="col-md-4">#}
+{#                <!-- Just send a form to wtf is enough -->#}
+{#                {{ wtf.quick_form(form) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endif %}#}
+
 {% endblock %}
 
 
