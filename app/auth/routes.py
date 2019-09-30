@@ -127,6 +127,10 @@ def login_verify():
                 flash('Email unknown or Password is not correct.', 'danger')
                 return redirect(url_for('auth.login_view',
                                         _external=True, _scheme='https'))
+        else:
+            flash('Email unknown or Password is not correct.', 'danger')
+            return redirect(url_for('auth.login_view',
+                                    _external=True, _scheme='https'))
 
 
 # -------------- Register View --------------- #
