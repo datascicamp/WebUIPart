@@ -99,7 +99,8 @@ def login_view():
 def login_verify():
     # check whether user has already login
     if current_user.is_authenticated:
-        return redirect(url_for('auth.home_view', account_id=current_user.account_id))
+        return redirect(url_for('auth.home_view', account_id=current_user.account_id,
+                                _external=True, _scheme='https'))
 
     # main function process below
     form = LoginForm()
@@ -109,7 +110,7 @@ def login_verify():
             # captcha validate ( get from session )
             if str(form.captcha.data).upper() != session.get('captcha_code'):
                 flash('CAPTCHA is not Correct!', 'warning')
-                return redirect(url_for('auth.login_view'))
+                return redirect(url_for('auth.login_view', _external=True, _scheme='https'))
         account_email = form.email.data
         password = form.password.data
         dest_url = 'http://' + Config.ACCOUNT_SERVICE_URL + '/api/account/validate-password'
@@ -120,10 +121,12 @@ def login_verify():
                 # add auth
                 verified_user = User(account_id=account['account_id'])
                 login_user(verified_user)
-                return redirect(url_for('auth.home_view', account_id=account['account_id']))
+                return redirect(url_for('auth.home_view', account_id=account['account_id'],
+                                        _external=True, _scheme='https'))
             else:
                 flash('Email unknown or Password is not correct.', 'danger')
-                return redirect(url_for('auth.login_view'))
+                return redirect(url_for('auth.login_view',
+                                        _external=True, _scheme='https'))
 
 
 # -------------- Register View --------------- #
@@ -157,7 +160,8 @@ def register_view():
 def register_account():
     # check whether user has already login
     if current_user.is_authenticated:
-        return redirect(url_for('auth.home_view', account_id=current_user.account_id))
+        return redirect(url_for('auth.home_view', account_id=current_user.account_id,
+                                _external=True, _scheme='https'))
 
     # main function process below
     form = RegisterForm()
@@ -166,10 +170,10 @@ def register_account():
         # captcha validate ( get from session )
         if str(form.captcha.data).upper() != session.get('captcha_code'):
             flash('CAPTCHA is not Correct!', 'warning')
-            return redirect(url_for('auth.register_view'))
+            return redirect(url_for('auth.register_view', _external=True, _scheme='https'))
         if form.password.data != form.re_password.data:
             flash('Passwords should be the same.', 'warning')
-            return redirect(url_for('auth.register_view'))
+            return redirect(url_for('auth.register_view', _external=True, _scheme='https'))
         # account info
         account_info = dict()
         account_info['account_email'] = form.email.data
@@ -179,10 +183,11 @@ def register_account():
         result = requests.post(register_url, data=account_info)
         if result.status_code == 200:
             account = get_api_info(result)[0]
-            return redirect(url_for('auth.login_view', account_id=account['account_id']))
+            return redirect(url_for('auth.login_view', account_id=account['account_id'],
+                                    _external=True, _scheme='https'))
         else:
             flash('Please use an different email address.', 'danger')
-            return redirect(url_for('auth.register_view'))
+            return redirect(url_for('auth.register_view', _external=True, _scheme='https'))
 
 
 # ---------------- Home Page ---------------- #
