@@ -14,6 +14,9 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, _scheme="https", filename='deadlines_css/deadlines.css') }}" media="screen,projection">
 <!-- icon -->
 <link rel="icon" href="{{ url_for('static', _scheme="https", _external = True, filename='img/favicon.ico') }}">
+<!-- data time picker -->
+<link  href="{{ url_for('static', _external = True, _scheme="https", filename='picker/picker.min.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', _external = True, _scheme="https", filename='picker/picker.min.js') }}"></script>
 <style>
   #navbar {/* 导航栏 */
       top: 0; /* Hide the navbar 50 px outside of the top view */
@@ -132,4 +135,20 @@
 
 {% block script_js %}
 {{ super() }}
+<script>
+    new Picker(document.querySelector('.js-inline-picker'), {
+        controls: true,
+        format: 'YYYY-MM-DD HH:mm:ss',
+        headers: true,
+        inline: true,
+        rows: 3,
+        increment: {
+            minute: 1,
+            second: 1,
+          },
+        text: {
+            title: 'Pick the Entry Deadline!',
+          },
+      });
+</script>
 {% endblock %}

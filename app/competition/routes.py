@@ -56,7 +56,7 @@ def competition_inserting_function():
 
         comp_scenario_list = str_to_right_type(str(form.comp_scenario.data))
         new_competition['comp_scenario'] = str(comp_scenario_list)
-        data_feature = [str(form.data_feature.data)]
+        data_feature = str_to_right_type(str(form.data_feature.data))
         new_competition['data_feature'] = str(data_feature)
 
         result = requests.post(insert_url, data=new_competition)
@@ -154,7 +154,10 @@ def competition_updating_view(comp_record_hash):
         for scenario in competition['comp_scenario']:
             comp_scenario.append(scenario)
         form.comp_scenario.data = comp_scenario
-        form.data_feature.data = competition['data_feature'][0]
+        data_feature = list()
+        for feature in competition['data_feature']:
+            data_feature.append(feature)        
+        form.data_feature.data = data_feature
         return render_template('competition/compUpdate.html', form=form)
 
 
@@ -198,7 +201,7 @@ def competition_updating_function(comp_record_hash):
 
             comp_scenario_list = str_to_right_type(str(form.comp_scenario.data))
             mod_competition['comp_scenario'] = str(comp_scenario_list)
-            data_feature = [str(form.data_feature.data)]
+            data_feature = str_to_right_type(str(form.data_feature.data))
             mod_competition['data_feature'] = str(data_feature)
 
             result = requests.put(update_url, data=mod_competition)
