@@ -9,10 +9,10 @@
 </style> -->
 <script id="mcjs">
     ! function (c, h, i, m, p) {
-      m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p)
+        m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p)
     }(document, "script",
-      "https://chimpstatic.com/mcjs-connected/js/users/9fc96c0c089d4508de8f618a5/a064ee28e34f00ca929271c58.js");
-  </script>
+        "https://chimpstatic.com/mcjs-connected/js/users/9fc96c0c089d4508de8f618a5/a064ee28e34f00ca929271c58.js");
+</script>
 {% endblock %}
 
 
@@ -33,7 +33,7 @@
         </div>
         <div class="meta col-xs-12">
             <li>Countdowns to <b>ENTRY DEADLINE</b> of popular Data Science Challenges/Competitions.</li>
-<!-- 
+            <!-- 
             <li>To add/update a challenge or any other advices to me, plesase don't hesitate and send in a
                 <a target="_blank" href="https://github.com/iphysresearch/DataSciComp"
                     style="background-color:#CCFF66">pull request</a>.
@@ -60,6 +60,7 @@
                 font: 14px Helvetica, Arial, sans-serif;
                 width: 500px;
             }
+
             /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
         </style>
@@ -114,13 +115,13 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <div class="col-md-4 col-xs-5">
+                    <!-- <div class="col-md-4 col-xs-5">
                         <div class="checkbox">
                             <label style="color:#FF0033"><input id="rewarded-checkbox" class="" type="checkbox"></input>
                                 Rewards filter
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         </div>
@@ -142,9 +143,10 @@
     class="{{ '-comp '.join(Comp.comp_scenario) }}-comp {% if Comp.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <a href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=Comp.comp_record_hash) }}"><b>{{ Comp.comp_title }}</b></a>
+            <a
+                href="{{ url_for('competition-operator.competition_detail_view', comp_record_hash=Comp.comp_record_hash) }}"><b>{{ Comp.comp_title }}</b></a>
             <div class="meta">{{ Comp.comp_range }}
-                // Host by 
+                // Host by
                 {% for host in Comp.comp_host %}
                 {% if loop.index > 1 %}
                 &
@@ -156,14 +158,16 @@
                 {% else %}
                 {% endif %}</div>
             {% if Comp.comp_description %}
-             <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }} <!-- safe 渲染时不转义 -->
+            <div class="note"><b>Note</b>: {{ Comp.comp_description | safe }}
+                <!-- safe 渲染时不转义 -->
                 <!-- More info <a href="http://baidu.com">here</a> -->
             </div>
             {% endif %}
             <div class="note">
                 <b>Published by</b>:
                 <a href="{{ url_for('competition-operator.competition_list_view', user_id=Comp.contributor_id) }}">
-                    {{ Comp.contributor_name | safe }} <!-- safe 渲染时不转义 -->
+                    {{ Comp.contributor_name | safe }}
+                    <!-- safe 渲染时不转义 -->
                 </a>
             </div>
         </div>
@@ -187,7 +191,7 @@
 <!-- https://clustrmaps.com/ -->
 <script type='text/javascript' id='clustrmaps'
     src='//cdn.clustrmaps.com/map_v2.js?cl=080808&w=557&t=tt&d=mmxT7aC-Q0y6XjIG4NnfnrS0FBgO6N7mGMI7h0MB_OM&co=ffffff&ct=808080&cmo=3acc3a&cmn=ff5353'>
-</script>
+    </script>
 {% endblock %}
 
 
@@ -196,66 +200,71 @@
 {% block script_js %}
 {{ super() }}
 <!-- navbar; myBtn -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Nav_Btn.js') }}"></script>
+<script type="text/javascript" charset="utf-8"
+    src=".{{ url_for('.static', _external = False, filename='js/Nav_Btn.js') }}"></script>
 <!-- system-time -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/ShowSysTime.js') }}"></script>
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Cookies_Refresh.js') }}"></script>
+<script type="text/javascript" charset="utf-8"
+    src=".{{ url_for('.static', _external = False, filename='js/ShowSysTime.js') }}"></script>
+<script type="text/javascript" charset="utf-8"
+    src=".{{ url_for('.static', _external = False, filename='js/Cookies_Refresh.js') }}"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134245065-1"></script>
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Google_Analytics.js') }}"></script>
+<script type="text/javascript" charset="utf-8"
+    src=".{{ url_for('.static', _external = False, filename='js/Google_Analytics.js') }}"></script>
 
 <!-- form :checkbox ; /?sub= -->
-<script type="text/javascript" charset="utf-8" src=".{{ url_for('.static', _external = False, filename='js/Checkboxes.js') }}"></script>
+<script type="text/javascript" charset="utf-8"
+    src=".{{ url_for('.static', _external = False, filename='js/Checkboxes.js') }}"></script>
 
 <script> // Begin: Deadline Control + Calendar
-$(function() {
-    // https://github.com/carlsednaoui/add-to-calendar-buttons
-    {% for Comp in competitions %}
+    $(function () {
+        // https://github.com/carlsednaoui/add-to-calendar-buttons
+        {% for Comp in competitions %}
         {% if Comp.deadline != 'No deadline' %}
-    // adjust date according to deadline timezone
-    //   var timezone = "Etc/GMT-8" ;
-    //   var timezone = "Asia/Shanghai" ;
-    var timezone = "{{ Comp.timezone }}" ;
-    var compDate = moment.tz("{{ Comp.deadline }}", timezone);
+        // adjust date according to deadline timezone
+        //   var timezone = "Etc/GMT-8" ;
+        //   var timezone = "Asia/Shanghai" ;
+        var timezone = "{{ Comp.timezone }}";
+        var compDate = moment.tz("{{ Comp.deadline }}", timezone);
 
-    // render countdown timer
-    $('#{{ Comp.comp_record_hash }} .timer').countdown(compDate.toDate(), function(event) {
-        $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
-    });
-    $('#{{ Comp.comp_record_hash }} .deadline-time').html(compDate.toString());
-    // add calendar button
-    var myCalendar = createCalendar({
-        options: {
-        class: 'calendar-obj',
-        // You can pass an ID. If you don't, one will be generated for you
-        id: '{{ Comp.comp_record_hash }}'
-        },
-        data: {
-        // Event title
-        title: '[Entry Deadline] {{ Comp.comp_title }}',
-        // Event start date
-        start: compDate.toDate(), 
-        end: compDate.toDate(), 
-            // You can also choose to set an end time
-            // If an end time is set, this will take precedence over duration
-            // end: new Date('June 15, 2013 23:00'),
-        // Event duration (IN MINUTES)
-        duration: 60,
-            // Event Description
-            description: '{{ Comp.comp_description }}'
-        }
-    });
-    document.querySelector('#{{ Comp.comp_record_hash }} .calendar').appendChild(myCalendar);
-    //console.log(myCalendar);
-    // check if date has passed, add 'past' class to it
-    var today = moment();
-    if (today.diff(compDate) > 0)
-        $('#{{ Comp.comp_record_hash }}').addClass('past');
+        // render countdown timer
+        $('#{{ Comp.comp_record_hash }} .timer').countdown(compDate.toDate(), function (event) {
+            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+        });
+        $('#{{ Comp.comp_record_hash }} .deadline-time').html(compDate.toString());
+        // add calendar button
+        var myCalendar = createCalendar({
+            options: {
+                class: 'calendar-obj',
+                // You can pass an ID. If you don't, one will be generated for you
+                id: '{{ Comp.comp_record_hash }}'
+            },
+            data: {
+                // Event title
+                title: '[Entry Deadline] {{ Comp.comp_title }}',
+                // Event start date
+                start: compDate.toDate(),
+                end: compDate.toDate(),
+                // You can also choose to set an end time
+                // If an end time is set, this will take precedence over duration
+                // end: new Date('June 15, 2013 23:00'),
+                // Event duration (IN MINUTES)
+                duration: 60,
+                // Event Description
+                description: '{{ Comp.comp_description }}'
+            }
+        });
+        document.querySelector('#{{ Comp.comp_record_hash }} .calendar').appendChild(myCalendar);
+        //console.log(myCalendar);
+        // check if date has passed, add 'past' class to it
+        var today = moment();
+        if (today.diff(compDate) > 0)
+            $('#{{ Comp.comp_record_hash }}').addClass('past');
         {% endif %}
-    {% endfor %}
+        {% endfor %}
 
-});    // End: Deadline Control + Calendar
+    });    // End: Deadline Control + Calendar
 </script>
 
 {% endblock %}
