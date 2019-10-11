@@ -48,13 +48,14 @@
 <div class="page-header">
     <div class="row">
         <div class="col-xs-12 col-sm-12">
-            <!-- H1 Title -->
-            <h1>Competition Name: {{ competition.comp_title }}</h1>
-            <p><b>Competition Url:</b> {{ competition.comp_url }} </p>
+            <!-- H1 Title | Competition Name-->
+            <h1>{{ competition.comp_title }}</h1>
+            <!-- Competition Url -->
+            <p>👉<a href="{{ competition.comp_url }}">{{ competition.comp_url }}</a>👈</p>
         </div>
         <div class="meta col-xs-12">
             <div class="tags">
-                <b>Tags: </b>
+                <!-- <b>Tags: </b> -->
                  <!-- https://www.jqueryscript.net/form/Simple-Animated-jQuery-Tags-Input-Plugin-Lovely-Tag.html -->
                 {% for tag1 in competition.comp_scenario %}
                     <span class="tag tag-{{ tag1 }}">{{ type_dict[ tag1 ] }}</span>
@@ -91,14 +92,11 @@
                     {% if loop.index > 1 %}
                     &
                     {% endif %}
-                    <p>
-                        <b>Name:</b> <a style="background-color:#CCFF66">{{ host.comp_host_name }}</a>
-                        <b>Website:</b> {{ host.comp_host_url }}
-                    </p>
+                        <a style="background-color:#CCFF66" href="{{ host.comp_host_url }}">{{ host.comp_host_name }}</a>
+                    {% endfor %}
                 </p>
-                {% endfor %}
-                {% if competition.prize_currency %}
-                <p><b>Prize:</b> {{ competition.prize_amount }} <b>Type:</b> {{ competition.prize_currency }}</p>
+                {% if competition.prize_amount %}
+                <p><b>Prize:</b> {{ competition.prize_amount }} {{ competition.prize_currency }}</p>
                 {% else %}
                 {% endif %}</div>
             {% if competition.comp_description %}
@@ -133,7 +131,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">
-            screenshot
+            <img src="https://api.apiflash.com/v1/urltoimage?access_key=fdd3baa4225c49929da8b5e453f5d6d1&format=jpeg&height=1500&quality=80&response_type=image&ttl=2592000&width=1920&url={{ competition.comp_url }}" />
         </div>
     </div>
     <hr>

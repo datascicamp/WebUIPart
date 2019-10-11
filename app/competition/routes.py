@@ -114,10 +114,11 @@ def competition_detail_view(comp_record_hash):
         competition = get_api_info(result)[0]
         # check user's authentication by account_id in url whether match current_user.account_id
         # Mention!! Type of current_user.account_id is not string!
-        if str(current_user.account_id) != competition['contributor_id']:
-            auth = {'operator': False}
-        else:
-            auth = {'operator': True}
+        # if str(current_user.account_id) != competition['contributor_id']:
+        #     auth = {'operator': False}
+        # else:
+        #     auth = {'operator': True}
+        auth = {'operator': True}
         return render_template('competition/compView.html', competition=competition, auth=auth,
                                type_dict=type_dict)
 
