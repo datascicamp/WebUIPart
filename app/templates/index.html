@@ -165,10 +165,16 @@
             {% endif %}
             <div class="note">
                 <b>Published by</b>:
-                <a href="{{ url_for('competition-operator.competition_list_view', user_id=Comp.contributor_id) }}">
+                {% if Comp.contributor_name == 'DataSciCamp' %}
+                <a href="#">
                     {{ Comp.contributor_name | safe }}
                     <!-- safe 渲染时不转义 -->
                 </a>
+                {% else %}
+                <a href="{{ url_for('competition-operator.competition_list_view', user_id=Comp.contributor_id) }}">
+                    {{ Comp.contributor_name | safe }}   
+                </a>
+                {% endif %}                 
             </div>
         </div>
         <div class="col-xs-12 col-sm-6">
