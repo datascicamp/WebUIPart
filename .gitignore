@@ -2,7 +2,8 @@
 *.pyc
 .DS_Store
 *.db
-
+xml/
+insert_comp.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

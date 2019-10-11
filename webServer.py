@@ -15,7 +15,7 @@ if __name__ == '__main__':
 # >> pip install flask_wtf
 
 # Eir....
-
+# vi ~/.bash_profile
 
 # Run
 # >> flask run --cert=adhoc
