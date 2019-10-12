@@ -83,7 +83,7 @@
     class="{{ '-Comp '.join(competition.comp_scenario) }}-comp {% if competition.prize_currency %}{% else %}un{% endif %}rewarded-comp">
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            {% if competition.comp_subtitle %}<b>Subtitle: </b><p>{{ competition.comp_subtitle }}</p>{% else %}{% endif %}
+            {% if competition.comp_subtitle %}<p><b>{{ competition.comp_subtitle }}</b></p>{% else %}{% endif %}
             <div class="meta">
                 <p><b>Time Range:</b> {{ competition.comp_range }}</p>
 
