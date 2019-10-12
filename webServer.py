@@ -19,3 +19,5 @@ if __name__ == '__main__':
 
 # Run
 # >> flask run --cert=adhoc
+
+# http://www.datascicamp.com:30081
