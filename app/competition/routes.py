@@ -122,7 +122,7 @@ def competition_detail_view(comp_record_hash):
         except AttributeError:
             auth = {'operator': False}
 
-        if competition['deadline']:
+        if competition['deadline'] is None :
             competition['deadline'] = 'No deadline'
         return render_template('competition/compView.html', competition=competition, auth=auth,
                                type_dict=type_dict)
