@@ -108,7 +108,7 @@ def competition_detail_view(comp_record_hash):
                     "CV" : "Computer Vision",
                     "NLP": "Natural Language Processing",
                     "RL": "Reinforcement Learning/Robotics",
-                    "SP": "Speech/Signal Proccessing"}               
+                    "SP": "Speech/Signal Proccessing"}
     result = requests.get(comp_url)
     if result.status_code == 200:
         competition = get_api_info(result)[0]
@@ -121,6 +121,9 @@ def competition_detail_view(comp_record_hash):
                 auth = {'operator': True}
         except AttributeError:
             auth = {'operator': False}
+
+        if competition['deadline']:
+            competition['deadline'] = 'No deadline'
         return render_template('competition/compView.html', competition=competition, auth=auth,
                                type_dict=type_dict)
 

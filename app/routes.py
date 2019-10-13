@@ -31,9 +31,17 @@ type_dict =    {"DM": "Data Mining",
 
 Func_deadline = lambda x: x['deadline']
 # 严格要求 deadline 的格式：%Y-%m-%d %H:%M:%S
-Filtering_pastcomp = lambda comps: [ comp for comp in comps if int(''.join(comp['deadline'].split()[0].split('-')))>=int(datetime.datetime.today().strftime('%Y%m%d'))]
+Filtering_pastcomp = lambda comps: [ comp for comp in comps if nonFiltering_deadline(comp)]
 Filtering_hashcomp = lambda comps, hash: [ comp for comp in comps if comp['comp_record_hash'] == hash]
 
+def nonFiltering_deadline(comp):
+    if comp['deadline']:
+        print(type(comp['deadline']), comp['deadline'])
+        return int(''.join(comp['deadline'].split()[0].split('-')))>=int(datetime.datetime.today().strftime('%Y%m%d'))
+    else:
+        comp['deadline'] = 'No deadline'  # Working for empty in comp['deadline']
+        return True
+    
 
 @app.route("/")
 @app.route("/index")
