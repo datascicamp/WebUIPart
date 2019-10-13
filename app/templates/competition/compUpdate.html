@@ -2,21 +2,22 @@
 <!-- import form receiving model -->
 {% import 'bootstrap/wtf.html' as wtf %}
 
-
 {% block head %}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data Science Competitions Deadlines</title>
 <meta name="description" content="Countdowns to popular Data Science Competitions deadlines">
 <meta name="author" content="Herb">
-<script type="text/javascript" src="{{ url_for('static', _external = True, _scheme="https", filename='js/jquery.min.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, _scheme="https", filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, _scheme="https", filename='deadlines_css/deadlines.css') }}" media="screen,projection">
+<script type="text/javascript" src="{{ url_for('static', _external = True, _scheme='https', filename='js/jquery.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, _scheme='https', filename='bootstrap-4.2.1-dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', _external = True, _scheme='https', filename='deadlines_css/deadlines.css') }}" media="screen,projection">
 <!-- icon -->
-<link rel="icon" href="{{ url_for('static', _scheme="https", _external = True, filename='img/favicon.ico') }}">
+<link rel="icon" href="{{ url_for('static', _scheme='https', _external = True, filename='img/favicon.ico') }}">
 <!-- data time picker -->
-<link  href="{{ url_for('static', _external = True, _scheme="https", filename='picker/picker.min.css') }}" rel="stylesheet">
-<script src="{{ url_for('static', _external = True, _scheme="https", filename='picker/picker.min.js') }}"></script>
+<link  href="{{ url_for('static', _external = True, _scheme='https', filename='picker/picker.min.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', _external = True, _scheme='https', filename='picker/picker.min.js') }}"></script>
+<!-- comp_hover -->
+<link  href="{{ url_for('static', _external = True, _scheme='https', filename='comp_hover/comp_hover.css') }}" rel="stylesheet">
 <style>
   #navbar {/* 导航栏 */
       top: 0; /* Hide the navbar 50 px outside of the top view */
@@ -72,62 +73,68 @@
             <form class="form-competition" method="post">
                 {{ form.csrf_token }}
                 <h1 class="h3 mb-3 font-weight-normal">Competition Info Update </h1>
-                <p>Modify Competition Information right now. </p>
-            <div class="form-group">
-                {{ form.comp_title.label }}
-                <p>{{ form.comp_title }}</p>
+                <p>Modify Competition Information right now. <span aria-hidden="true" class="required">*</span>Required field</p>
+                <div class="form-group">
+                    <!-- <svg id="definition" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="tooltip" viewbox="0 0 442.762 442.762"><g><path d="M237.082,31.617c-113.596,0-205.68,84.96-205.68,189.764c0,28.473,6.809,55.473,18.986,79.711L1.736,389.064 		c-2.705,4.887-2.215,10.916,1.238,15.307c2.672,3.396,6.721,5.299,10.912,5.299c1.223,0,2.457-0.162,3.674-0.498l106.506-29.232 c32.432,19.719,71.266,31.205,113.016,31.205c113.594,0,205.68-84.959,205.68-189.764 		C442.762,116.577,350.676,31.617,237.082,31.617z M236.737,318.873c-11.227,0-20.356-9.132-20.356-20.357 		c0-11.225,9.131-20.357,20.356-20.357c11.227,0,20.357,9.133,20.357,20.357C257.096,309.74,247.965,318.873,236.737,318.873z 	M258.064,222.034c-2.674,1.828-4.522,3.175-5.522,4.021v21.272c0,8.712-7.091,15.8-15.802,15.8c-8.715,0-15.802-7.088-15.802-15.8 		v-22.918c0-15.281,11.152-22.903,19.296-28.467c8.789-6.005,14.595-9.972,14.595-22.361c0-9.975-8.113-18.09-18.089-18.09 		c-9.977,0-18.089,8.115-18.089,18.09c0,8.713-7.09,15.801-15.803,15.801c-8.713,0-15.803-7.088-15.803-15.801 		c0-27.4,22.293-49.692,49.694-49.692c27.398,0,49.691,22.292,49.691,49.692C286.432,202.653,268.674,214.787,258.064,222.034z"></path></g></symbol></defs></svg> -->
+                <!-- {{ form.comp_title.label }} -->
+                <p>
+                Title<span aria-hidden="true" class="required">*</span>
+                {{ form.comp_title }}</p>
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
             <div class="form-group">
-                {{ form.comp_subtitle.label }}
+                <!-- {{ form.comp_subtitle.label }} -->
+                Subtitle
                 <p>{{ form.comp_subtitle }}</p>
             </div>
             <div class="form-group">
-                {{ form.comp_range.label }}
+                <!-- {{ form.comp_range.label }} -->
+                Duration<span aria-hidden="true" class="required">*</span>
                 <p>{{ form.comp_range }}</p>
             </div>
             <div class="form-group">
-                {{ form.comp_url.label }}
+                <!-- {{ form.comp_url.label }} -->
+                URL<span aria-hidden="true" class="required">*</span>
                 <p>{{ form.comp_url }}</p>
             </div>
             <div class="form-group">
-                {{ form.comp_description.label }}
+                <!-- {{ form.comp_description.label }} -->
+                Description<span aria-hidden="true" class="required">*</span>
                 <p>{{ form.comp_description }}</p>
             </div>
             <div class="form-group">
-                {{ form.comp_host_name.label }}
-                <p>{{ form.comp_host_name }}</p>
+                <!-- {{ form.comp_host_name.label }} -->
+                Organizer<span aria-hidden="true" class="required">*</span>
+                <p style="padding-left: 10%;">
+                    &nbsp;&nbsp;&nbsp;Name: {{ form.comp_host_name }}<br>Website: 
+                  {{ form.comp_host_url }}</p>
             </div>
             <div class="form-group">
-                {{ form.comp_host_url.label }}
-                <p>{{ form.comp_host_url }}</p>
+                <!-- {{ form.prize_currency.label }} -->
+                Prize
+                <p style="padding-left: 10%;">
+                {{ form.prize_amount }}<br>
+                {{ form.prize_currency }}
+              </p>
             </div>
             <div class="form-group">
-                {{ form.prize_currency.label }}
-                <p>{{ form.prize_currency }}</p>
+                <!-- {{ form.deadline.label }} -->
+                Entry Deadline<span aria-hidden="true" class="required">*</span>
+                <p style="padding-left: 10%;">{{ form.deadline }}
+                {{ form.timezone }}</p>
             </div>
             <div class="form-group">
-                {{ form.prize_amount.label }}
-                <p>{{ form.prize_amount }}</p>
+                <!-- {{ form.comp_scenario.label }} -->
+                Topics<span aria-hidden="true" class="required">*</span>
+                <p style="padding-left: 10%;">{{ form.comp_scenario }}</p>
             </div>
             <div class="form-group">
-                {{ form.deadline.label }}
-                <p>{{ form.deadline }}</p>
-            </div>
-            <div class="form-group">
-                {{ form.timezone.label }}
-                <p>{{ form.timezone }}</p>
-            </div>
-            <div class="form-group">
-                {{ form.comp_scenario.label }}
-                <p>{{ form.comp_scenario }}</p>
-            </div>
-            <div class="form-group">
-                {{ form.data_feature.label }}
-                <p>{{ form.data_feature }}</p>
+                <!-- {{ form.data_feature.label }} -->
+                Data<span aria-hidden="true" class="required">*</span>
+                <p style="padding-left: 10%;">{{ form.data_feature }}</p>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </form>        
     </div>
 {% endblock %}
 
@@ -135,7 +142,9 @@
 
 {% block script_js %}
 {{ super() }}
-<script>
+<!-- comp_hover -->
+<script src="{{ url_for('static', _external = True, _scheme='https', filename='comp_hover/comp_hover.js') }}"></script>
+<script> // data time picker
     new Picker(document.querySelector('.js-inline-picker'), {
         controls: true,
         format: 'YYYY-MM-DD HH:mm:ss',
