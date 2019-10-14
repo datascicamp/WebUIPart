@@ -7,7 +7,7 @@ from app.models import User
 import requests
 import datetime
 import numpy as np
-import pytz, heapq # 堆队列
+# import pytz, heapq # 堆队列
 
 
 # id_type_checkboxs = [
