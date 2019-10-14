@@ -45,11 +45,11 @@
                 various sources in which you may have an interest.
             </li>
              -->
-            <!-- 
+            
                 <li>Subscribe to our mailing list for news and updates! <a
-                    href="https://iphysresearch.github.io/DataSciComp/update_log.xml"><img
+                    href="https://www.datascicamp.com/update_log.xml"><img
                         src=".{{ url_for('.static', _external = False, filename='img/rss.gif') }}" width="36" height="14"></a></li>
-                         -->
+                        
         </div>
         <!-- Begin Mailchimp Signup Form -->
         <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
@@ -156,7 +156,7 @@
                 <a href="{{ host.comp_host_url }}">{{ host.comp_host_name }}</a>
                 {% endfor %}
                 {% if Comp.prize_currency or Comp.prize_amount %}
-                // Prize: {{ Comp.prize_amount }} {{ Comp.prize_currency }}
+                // Prize: {% if Comp.prize_amount %}{{ Comp.prize_amount }}{% endif %} {% if Comp.prize_currency %}{{ Comp.prize_currency }}{% endif %}
                 {% else %}
                 {% endif %}</div>
             {% if Comp.comp_description %}
