@@ -17,6 +17,7 @@ RUN pip install requests
 RUN pip install flask-login
 RUN pip install python-dotenv
 RUN pip install pillow
+RUN pip install numpy
 # Expose port
 EXPOSE 5000
 # Run command
