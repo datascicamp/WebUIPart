@@ -142,9 +142,11 @@ class CompetitionInsertForm(FlaskForm):
             ("Non-structured", "Non-structured"),
             ("Semi-supervised", "Semi-supervised"),
             ("Supervised", "Supervised"),
+            ("Clustering", "Clustering"),
             ("Geographic", "Geographic"),
             ("Time-series", "Time-series"),
             ("Natural language-based", "Natural language-based"),
+            ('Recommender system', 'Recommender system'),
         ],
         render_kw={
             "multiple": "multiple",
@@ -282,9 +284,11 @@ class CompetitionUpdateForm(FlaskForm):
             ("Non-structured", "Non-structured"),
             ("Semi-supervised", "Semi-supervised"),
             ("Supervised", "Supervised"),
+            ("Clustering", "Clustering"),
             ("Geographic", "Geographic"),
             ("Time-series", "Time-series"),
             ("Natural language-based", "Natural language-based"),
+            ('Recommender system', 'Recommender system'),
         ],
         render_kw={
             "multiple": "multiple",
