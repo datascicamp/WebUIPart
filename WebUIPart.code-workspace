@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/Users/herb/Github/DataSciComp"
+		},
+		{
+			"path": "/Users/herb/Github/DataSciCamp"
 		}
 	],
 	"settings": {}
