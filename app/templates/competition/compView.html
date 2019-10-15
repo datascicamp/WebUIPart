@@ -95,8 +95,8 @@
                         <a style="background-color:#CCFF66" href="{{ host.comp_host_url }}">{{ host.comp_host_name }}</a>
                     {% endfor %}
                 </p>
-                {% if competition.prize_amount %}
-                <p><b>Prize:</b> {{ competition.prize_amount }} {{ competition.prize_currency }}</p>
+                {% if competition.prize_currency or competition.prize_amount %}
+                <p><b>Prize:</b>  {% if competition.prize_amount %}{{ competition.prize_amount }}{% endif %} {% if competition.prize_currency %}{{ competition.prize_currency }}{% endif %}</p>
                 {% else %}
                 {% endif %}</div>
             {% if competition.comp_description %}
