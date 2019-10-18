@@ -87,7 +87,7 @@ def products_xml():
     # comps_pubtime = np.array([int(i["pubtime"].replace("-", "")) for i in competitions])
     # comps_pubtime = np.array([int(comp['publish_time'][:10].replace("-", "")) for comp in competitions])
     comps_pubtime = np.array([comp['publish_time'] for comp in competitions])
-    valid_index = [datetime.datetime.strptime(pubtime, '%Y-%m-%d %H:%M:%S') < (datetime.datetime.today()-datetime.timedelta(days=7)) for pubtime in comps_pubtime]
+    valid_index = [datetime.datetime.strptime(pubtime, '%Y-%m-%d %H:%M:%S') >= (datetime.datetime.today()-datetime.timedelta(days=7)) for pubtime in comps_pubtime]
     competitions = np.array(competitions)[np.array(valid_index)] #  Filtering the comps for a week
 
 
