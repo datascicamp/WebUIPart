@@ -147,6 +147,7 @@ class CompetitionInsertForm(FlaskForm):
             ("Time-series", "Time-series"),
             ("Natural language-based", "Natural language-based"),
             ('Recommender system', 'Recommender system'),
+            ('Adversarial Training', 'Adversarial Training'),
         ],
         render_kw={
             "multiple": "multiple",
@@ -289,6 +290,7 @@ class CompetitionUpdateForm(FlaskForm):
             ("Time-series", "Time-series"),
             ("Natural language-based", "Natural language-based"),
             ('Recommender system', 'Recommender system'),
+            ('Adversarial Training', 'Adversarial Training'),
         ],
         render_kw={
             "multiple": "multiple",
