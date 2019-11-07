@@ -80,7 +80,6 @@ class CompetitionInsertForm(FlaskForm):
             "placeholder": "Prize_block2",#,"USD / RMB / Swag / ...",
             "style": 'width: 30%;display: inline',       
             "data-adg-tooltip-simple": 'If no prize at all, just leave them empty.<br>Eg: <span class="text-muted"><u>10,000</u> <u>USD</u></span> or <span class="text-muted"><u>Kaggle</u> <u>Swag</u></span><br>Eg: <span class="text-muted"><u>20万</u> <u>RMB</u></span> or <span class="text-muted"><u>Nvidia GTX 1080ti</u> <u>x 4</u></span><br><img src="/static/img/Prize.png">',     
-            "required": "",
             "autofocus": "",
         },)
     prize_amount = StringField("Prize (optional)", render_kw={
@@ -88,7 +87,6 @@ class CompetitionInsertForm(FlaskForm):
             "placeholder": "Prize_block1",#,"10,000,000 / Nvidia GTX 1080ti x 4 / 2 resea. fellowships up to 12 months / ...",
             "style": 'width: 30%;display: inline',
             "data-adg-tooltip-simple": 'If no prize at all, just leave them empty.<br>Eg: <span class="text-muted"><u>10,000</u> <u>USD</u></span> or <span class="text-muted"><u>Kaggle</u> <u>Swag</u></span><br>Eg: <span class="text-muted"><u>20万</u> <u>RMB</u></span> or <span class="text-muted"><u>Nvidia GTX 1080ti</u> <u>x 4</u></span><br><img src="/static/img/Prize.png">',     
-            "required": "",
             "autofocus": "",
         },)
     # Text Field类型，文本输入框，必须输入是"年-月-日 时:分:秒"格式的日期
@@ -223,7 +221,6 @@ class CompetitionUpdateForm(FlaskForm):
             "placeholder": "Prize_block2",#,"USD / RMB / Swag / ...",
             "style": 'width: 30%;display: inline',       
             "data-adg-tooltip-simple": 'If no prize at all, just leave them empty.<br>Eg: <span class="text-muted"><u>10,000</u> <u>USD</u></span> or <span class="text-muted"><u>Kaggle</u> <u>Swag</u></span><br>Eg: <span class="text-muted"><u>20万</u> <u>RMB</u></span> or <span class="text-muted"><u>Nvidia GTX 1080ti</u> <u>x 4</u></span><br><img src="/static/img/Prize.png">',     
-            "required": "",
             "autofocus": "",
         },)
     prize_amount = StringField("Prize (optional)", render_kw={
@@ -231,7 +228,6 @@ class CompetitionUpdateForm(FlaskForm):
             "placeholder": "Prize_block1",#,"10,000,000 / Nvidia GTX 1080ti x 4 / 2 resea. fellowships up to 12 months / ...",
             "style": 'width: 30%;display: inline',
             "data-adg-tooltip-simple": 'If no prize at all, just leave them empty.<br>Eg: <span class="text-muted"><u>10,000</u> <u>USD</u></span> or <span class="text-muted"><u>Kaggle</u> <u>Swag</u></span><br>Eg: <span class="text-muted"><u>20万</u> <u>RMB</u></span> or <span class="text-muted"><u>Nvidia GTX 1080ti</u> <u>x 4</u></span><br><img src="/static/img/Prize.png">',     
-            "required": "",
             "autofocus": "",
         },)
     # Text Field类型，文本输入框，必须输入是"年-月-日 时:分:秒"格式的日期
