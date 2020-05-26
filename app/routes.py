@@ -25,11 +25,11 @@ id_type2_checkboxs = [
     {"id": "SP-checkbox", "name": "Speech/Signal Proccessing"},
 ]
 
-type_dict =    {"DM": "Data Mining",
-                "CV" : "Computer Vision",
-                "NLP": "Natural Language Processing",
-                "RL": "Reinforcement Learning/Robotics",
-                "SP": "Speech/Signal Proccessing"}
+type_dict = {
+    "DM": "Data Mining","CV": "Computer Vision",
+    "NLP": "Natural Language Processing",
+    "RL": "Reinforcement Learning/Robotics",
+    "SP": "Speech/Signal Proccessing"}
 
 Func_deadline = lambda x: x['deadline']
 # 严格要求 deadline 的格式：%Y-%m-%d %H:%M:%S
